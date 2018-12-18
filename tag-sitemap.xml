@@ -17,7 +17,14 @@
 
     <url>
         <loc>http://yoursite-url/tags/flyway/</loc>
-        <lastmod>2018-12-17T09:41:57.235Z</lastmod>
+        <lastmod>2018-12-18T08:15:59.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+        <lastmod>2018-12-18T08:15:59.688Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
