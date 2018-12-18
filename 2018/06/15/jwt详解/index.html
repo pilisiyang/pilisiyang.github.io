@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          DevOps与CI/CD - plsy | blog
+          jwt详解 - plsy | blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/11/17/DevOps与CI-CD/">
+    <link rel="canonical" href="http://yoursite-url/2018/06/15/jwt详解/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#devops" title="devops">devops</a>
+                              <a class="tag" href="/tags/#security" title="security">security</a>
                             
                         </div>
-                        <h1>DevOps与CI/CD</h1>
+                        <h1>jwt详解</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by pilisiyang on
-                            2018-11-17
+                            2018-06-15
                         </span>
                         <span id="busuanzi_container_page_pv">
                           本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -211,113 +211,88 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="devops与cicd简介">DevOps与ci/cd简介</span></h1>
-<h2><span id="什么是devops">什么是DevOps</span></h2>
-<blockquote>
-<p><strong>DevOps</strong>（Development和Operations的组合词）是一种重视“软件开发人员（Dev）”和“IT运维技术人员（Ops）”之间沟通合作的文化、运动或惯例。<br>
-透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。<br>
-DevOps经常被描述为“开发团队与运营团队之间更具协作性、更高效的关系”。由于团队间协作关系的改善，整个组织的效率因此得到提升，伴随频繁变化而来的生产环境的风险也能得到降低。</p>
-</blockquote>
-<p>AWS对DevOps模式做了一个完整的定义:</p>
-<blockquote>
-<p>DevOps集文化理念、实践和工具于一身。可以提高组织交付应用程序和服务的能力。与使用传统软件和基础设施管理流程相比，能够帮助组织更快的发展和改进产品。这种速度使组织更好的服务其客户，并在市场上高效的参与竞争。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/7YNrNcB.png" alt=""></p>
-<p>简单来说，DevOps希望做到的是软件产品交付过程中IT工具链的打通，使得各个团队减少时间损耗，更加高效地协同工作。</p>
-<p><img src="https://i.imgur.com/oWPubET.jpg" alt=""></p>
-<h4><span id="devops发展阶段">DevOps发展阶段</span></h4>
-<blockquote>
-<p>软件行业的研发模式，可以发现大致有三个阶段：瀑布式开发、敏捷开发、DevOps。</p>
-<p>DevOps的概念很早就有，但是为什么最近两年才开始受到越来越多的企业重视和实践呢？</p>
-<p>因为现在有越来越多的技术支撑。微服务架构理念、容器技术使得DevOps的实施变得更加容易，计算能力提升和云环境的发展使得快速开发的产品可以立刻获得更广泛的使用。</p>
-<p>DevOps的实现可以基于新兴的容器技术；也可以在自动化运维工具Puppet、SaltStack、Ansible之后的延伸；还可以构建在传统的Cloud Foundry、OpenShift等PaaS厂商之上。</p>
-</blockquote>
-<h4><span id="devops的好处">DevOps的好处</span></h4>
-<pre><code>最大的好处就是可以高效交付，这也正好是它的初衷。
+                <h2><span id="什么是jwt">什么是JWT？</span></h2>
+<pre><code>JWT全称是JSON Web Token是一个开放标准(RFC 7519)，目前最流行的跨域身份验证解决方案。
+
+它定义了一种经过加密的格式，放在json对象在请求中传递，用于验证请求是否被允许访问。
 </code></pre>
-<blockquote>
-<p>Puppet和DevOps Research and Assessment (DORA) 主办了2016年DevOps调查报告，根据全球4600位各IT公司的技术工作者的提交数据统计，得出高效公司平均每年可以完成1460次部署。与低效组织相比，高效组织的部署频繁200倍，产品投入使用速度快2555倍，服务恢复速度快24倍。在工作内容的时间分配上，低效者要多花22%的时间用在为规划好或者重复工作上，而高效者却可以多花29%的时间用在新的工作上。所以这里的高效不仅仅指公司产出的效率提高，还指员工的工作质量得到提升。</p>
-</blockquote>
-<h4><span id="对应用程序发布的影响">对应用程序发布的影响</span></h4>
-<p>在很多企业中，应用程序发布是一项涉及多个团队、压力很大、风险很高的活动。然而在具备DevOps能力的组织中，应用程序发布的风险很低，原因如下：</p>
-<ul>
-<li>减少变更范围</li>
-</ul>
-<blockquote>
-<p>与传统的瀑布式开发模型相比，采用敏捷或迭代式开发意味着更频繁的发布、每次发布包含的变化更少。由于部署经常进行，因此每次部署不会对生产系统造成巨大影响，应用程序会以平滑的速率逐渐生长。</p>
-</blockquote>
-<ul>
-<li>加强发布协调</li>
-</ul>
-<blockquote>
-<p>靠强有力的发布协调人来弥合开发与运营之间的技能鸿沟和沟通鸿沟；采用电子数据表、电话会议、即时消息、企业门户（wiki、sharepoint）等协作工具来确保所有相关人员理解变更的内容并全力合作。</p>
-</blockquote>
-<ul>
-<li>自动化</li>
-</ul>
-<blockquote>
-<p>强大的部署自动化手段确保部署任务的可重复性、减少部署出错的可能性。</p>
-</blockquote>
-<h4><span id="应用发布流程">应用发布流程</span></h4>
-<p><img src="https://i.imgur.com/IEhUHLA.jpg" alt=""></p>
-<pre><code>有的公司还会有预发布环境和灰度测试
+<h2><span id="jwt的原理">JWT的原理</span></h2>
+<p>服务器经过认证以后，会生成加密串返回前台，结构如下图：<br>
+<img src="https://i.imgur.com/waSWWVx.png" alt=""></p>
+<pre><code>JSON Web Token由三部分组成，它们之间用.连接。
+
+* Header 头部
+* Payload 负载
+* Signature 签名
 </code></pre>
-<h2><span id="什么是cicd">什么是CI/CD？</span></h2>
-<pre><code>CI/CD包含两个独立而又互补的部分。
-</code></pre>
-<ul>
-<li>
-<p><strong>持续集成</strong>是指在应用代码的新组件集成到共享存储库之后自动测试和构建软件的流程。这样一来，就可以打造出始终处于工作状态的应用“版本”。持续集成流程中纳入了单元测试，因而可以验证软件的功能。这样可以提前识别错误，并避免反馈回路后期的周期浪费。</p>
-</li>
-<li>
-<p><strong>持续交付</strong>是指将CI流程中创建的应用交付到类似生产环境的过程，在该过程中将对应用进行额外的自动化测试，以确保应用在部署到生产环境以及交付到真实用户手中时能够发挥预期作用。这样还可以确保最新构建版本能够以预期方式与其他软件和应用交互。成功的CD意味着，无论是通过自动化还是手动，构建版本都随时可以部署到生产环境。</p>
-</li>
-</ul>
-<h4><span id="cicd的重要意义">CI/CD的重要意义</span></h4>
-<ul>
-<li>基于业务要求按需部署软件</li>
-</ul>
+<h3><span id="header">Header</span></h3>
+<p>Header 部分用Base64URL解密后是一个JSON对象，主要描述了签名的算法和令牌类型。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>alg属性表示签名使用的算法，默认为HMAC SHA256（写为HS256），typ属性表示令牌的类型，JWT令牌统一写为JWT。</p>
+<h3><span id="payload">Payload</span></h3>
+<p>Payload 部分同样也是一个JSON对象，它包含Claim。</p>
+<p>Claim中存的就是这些字段，有三种类型：</p>
 <blockquote>
-<p>采用CI/CD的团队只需几分钟即可将新应用代码部署到生产环境，并且可以在最符合业务需求的时候而不是按照预定的发布时间进行部署。</p>
-</blockquote>
 <ul>
-<li>降低软件在生产环境中无法正常运行的风险</li>
+<li>Registered claims 预定义的声明</li>
+<li>Public claims 公开声明</li>
+<li>Private claims 私有声明</li>
 </ul>
+</blockquote>
+<p>JWT 规定了7个Registered claims</p>
 <blockquote>
-<p>采用CI/CD，代码在交付之前会经过严密的自动化测试，从而大幅降低错误或问题代码进入生产环境的风险。</p>
-</blockquote>
 <ul>
-<li>实现根据客户反馈进行快速迭代</li>
+<li>iss (issuer)：签发人</li>
+<li>exp (expiration time)：过期时间</li>
+<li>sub (subject)：主题</li>
+<li>aud (audience)：受众</li>
+<li>nbf (Not Before)：生效时间</li>
+<li>iat (Issued At)：签发时间</li>
+<li>jti (JWT ID)：编号</li>
 </ul>
+</blockquote>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从payload中拿到Claim</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function">Claims <span class="title">getClaimsFromToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">    Claims claims = Jwts.parser()</span><br><span class="line">            .setSigningKey(secret)</span><br><span class="line">            .parseClaimsJws(token)</span><br><span class="line">            .getBody();</span><br><span class="line">    <span class="keyword">return</span> claims;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是JWT的信息默认是不加密的，Payload传递的不要有秘密信息。</p>
+<h3><span id="signature">Signature</span></h3>
+<p>Signature 部分是对前两部分的签名，用来防止数据篡改。</p>
+<p>服务端指定密钥（secret），使用Header指定的签名算法，用转码后的JWT串产生签名。</p>
 <blockquote>
-<p>CI/CD优化了敏捷方法和DevOps，它可以提供必要的功能，将向用户持续学习所得的经验付诸实践，使团队能够以小批量快速迭代和交付软件。</p>
+<p>HMACSHA256(base64UrlEncode(header) + “.” +base64UrlEncode(payload), secret)</p>
 </blockquote>
-<ul>
-<li>加快发生故障时的恢复速度</li>
-</ul>
+<p>在项目中使用了用 <a href="https://github.com/jwtk/jjwt" title="jjwt" target="_blank" rel="noopener">jjwt</a> 生成：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> generateToken(<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">Object</span>&gt; claims) &#123;</span><br><span class="line">    <span class="keyword">return</span> Jwts.builder()</span><br><span class="line">            .setClaims(claims)</span><br><span class="line">            .setExpiration(generateExpirationDate(claims.<span class="keyword">get</span>(CLAIM_KEY_USERNAME)))</span><br><span class="line">            .signWith(SignatureAlgorithm.HS512, secret)</span><br><span class="line">            .compact();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="base64url">Base64URL</span></h3>
+<p>Base64URL 是一种能够对 URL 进行 base64 串型化的算法。</p>
+<p>在目前项目中的外部接入管理里，需要将 url 放入到 Payload 中，如果直接使用的 Base64 算法，会与特殊符号+、/和=冲突，Base64URL会将 =省略、+替换成-，/替换成_。</p>
+<h2><span id="jwt使用方式">JWT使用方式</span></h2>
+<p>客户端收到服务器返回的 JWT，需要自己存储在 Cookie 或者 localStorage中。</p>
+<p>此后的每一次请求都必须带上这个 JWT，放在 cookie 中是无法跨域的，所以我们需要在 HTTP 请求的头信息或者参数中带上。</p>
+<h2><span id="jwt的特点与session的差异">JWT的特点与session的差异</span></h2>
+<p>首先要明确，http协议是无状态的，每次请求对服务端而言，是不清楚上一次请求的认证。</p>
+<p>session 的做法是将已经认证过的用户信息存储在服务器，用户下次请求带上 Session ID，服务器依此判断用户是否认证过。<br>
+因此也带来了一些问题：</p>
 <blockquote>
-<p>如果生产环境中发生故障（这种情况极少发生），CI/CD可以快速找出错误代码并将修复程序推送到生产环境，让团队能够缩短平均恢复时间(MTTR)，从而最大限度减少对最终用户的影响。</p>
-</blockquote>
-<h4><span id="环节">环节</span></h4>
 <ul>
-<li>代码仓库，用于存储程序源文件的地方。如：GitLab，Github</li>
-<li>构建，这是一个持续集成工具，用于编译、打包程序，运行单元测试 如：GitLab-ci，Jenkins</li>
-<li>测试，提供有关业务风险反馈的连续测试工具。 如：JUnit</li>
-<li>发布，快速上线部署，自动化发布。如：docker，k8s</li>
-<li>监控与日志，应用监控、基础日志，帮助快速定位问题。如：ElasticStack，zipkin</li>
+<li>开销： 用户信息保存在内存中，认证的用户越多，内存开销越大。</li>
+<li>扩展性：不方便扩展，虽然可以将session存储在redis中，但是对程序的稳定性又带来不确定</li>
+<li>CORS：跨资源共享问题，调用从另一个域名下获取资源时，会遇到禁止请求。</li>
 </ul>
-<h2><span id="在我们项目中的实际应用">在我们项目中的实际应用</span></h2>
-<p>在我们应用中的pipeline流程：<br>
-gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
+</blockquote>
+<p>与之相反的是 JWT 这种令牌认证方式，基于Token的身份认证是无状态的，服务器或者Session中不会存储任何用户信息，方便无状态的服务扩展，尤其适合做单点登录和手机端的鉴权。<br>
+但JWT也有不足，令牌一旦发出，是无法作废的，到期之前一直有效。</p>
 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
+                        <li class="previous">
+                            <a href="/2018/09/06/flyway数据库版本管理工具/" data-toggle="tooltip" data-placement="top" title="flyway数据库版本管理工具">&larr; Previous Post</a>
+                        </li>
+                    
                     
                         <li class="next">
-                            <a href="/2018/10/09/docker简介/" data-toggle="tooltip" data-placement="top" title="docker简介">Next Post &rarr;</a>
+                            <a href="/2017/09/06/spring security/" data-toggle="tooltip" data-placement="top" title="security">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -369,7 +344,7 @@ gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">DevOps与ci/cd简介</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">什么是DevOps</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.1.</span> <span class="toc-nav-text">DevOps发展阶段</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.2.</span> <span class="toc-nav-text">DevOps的好处</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.3.</span> <span class="toc-nav-text">对应用程序发布的影响</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.4.</span> <span class="toc-nav-text">应用发布流程</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">什么是CI/CD？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.0.1.</span> <span class="toc-nav-text">CI/CD的重要意义</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.0.2.</span> <span class="toc-nav-text">环节</span></a></li></ol></li></ol><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">在我们项目中的实际应用</span></a></li>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什么是JWT？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">JWT的原理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Header</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Payload</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Signature</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">Base64URL</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">JWT使用方式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">JWT的特点与session的差异</span></a></li></ol>
         
         </div>
       </aside>
@@ -389,7 +364,7 @@ gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#devops" title="devops">devops</a>
+                          <a class="tag" href="/tags/#security" title="security">security</a>
                         
                     </div>
                 </section>
