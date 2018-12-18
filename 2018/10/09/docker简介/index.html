@@ -140,14 +140,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -412,7 +412,34 @@ docker build命令用于从Dockerfile构建映像。
                 <!-- 多说 Share end-->
 
                 <!-- 多说评论框 start -->
-                
+                <div id="vcomment" class="comment"></div>
+                <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+                <script>
+                   var notify = 'false' == true ? true : false;
+                   var verify = 'false' == true ? true : false;
+                   new Valine({
+                            av: AV,
+                            el: '#vcomment',
+                            notify: notify,
+                            verify: verify,
+                            app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
+                            app_key: "ouKekTXGSS27MkKPnCN4pwLj-gzGzoHsz",
+                            placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+                            avatar: "",
+                            avatar_cdn: "https://sdn.geekzu.org/avatar/",
+                            pageSize: 15
+                    });
+                    if(window.location.hash){
+                        var checkExist = setInterval(function() {
+                           if ($(window.location.hash).length) {
+                              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                              clearInterval(checkExist);
+                           }
+                        }, 100);
+                    }
+                </script>
                 <!-- 多说评论框 end -->
 
                 <!-- disqus comment start -->
@@ -460,14 +487,6 @@ docker build命令用于从Dockerfile构建映像。
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
 
-                    
-                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
-                    
-                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
-                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                        <li><a href="#" target="_blank">It Helps SEO</a></li>
                     
                 </ul>
                 
@@ -684,7 +703,6 @@ docker build命令用于从Dockerfile构建映像。
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
-<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true}});</script></body>
