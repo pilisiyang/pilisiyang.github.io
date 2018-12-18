@@ -95,10 +95,12 @@
                             Posted by pilisiyang on
                             2018-11-17
                         </span>
+                        <span class="leancloud-visitors">
+                            <em class="post-meta-item-text">阅读量 </em>
+                            <i class="leancloud-visitors-count"></i>
+                        </span>
                     </div>
                 
-
-
                 </div>
             </div>
         </div>
@@ -140,7 +142,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -154,7 +156,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -202,8 +204,8 @@
 <!-- Post Content -->
 <article>
     <div class="container">
-        <div class="row">
 
+        <div class="row">
             <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
@@ -309,7 +311,6 @@ DevOps经常被描述为“开发团队与运营团队之间更具协作性、�
 <p>在我们应用中的pipeline流程：<br>
 gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
 
-                
 
                 <hr>
                 <!-- Pager -->
@@ -334,11 +335,13 @@ gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
                 <script>
                    var notify = 'false' == true ? true : false;
                    var verify = 'false' == true ? true : false;
+                   var visitor = 'true // 阅读量统计' == true ? true : false;
                    new Valine({
                             av: AV,
                             el: '#vcomment',
                             notify: notify,
                             verify: verify,
+                            visitor: visitor,
                             app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
                             app_key: "ouKekTXGSS27MkKPnCN4pwLj-gzGzoHsz",
                             placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
