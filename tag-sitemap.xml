@@ -31,14 +31,7 @@
 
     <url>
         <loc>http://yoursite-url/tags/security/</loc>
-        <lastmod>2018-12-18T10:41:03.630Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/tags/spring/</loc>
-        <lastmod>2018-12-18T10:41:03.630Z</lastmod>
+        <lastmod>2018-12-18T10:40:34.561Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -52,7 +45,7 @@
 
     <url>
         <loc>http://yoursite-url/tags/spring-security/</loc>
-        <lastmod>2018-12-19T03:54:05.277Z</lastmod>
+        <lastmod>2018-12-19T05:42:59.694Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
