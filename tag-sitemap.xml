@@ -38,14 +38,14 @@
 
     <url>
         <loc>http://yoursite-url/tags/node-js/</loc>
-        <lastmod>2018-12-19T03:54:05.277Z</lastmod>
+        <lastmod>2018-12-19T07:32:15.044Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/spring-security/</loc>
-        <lastmod>2018-12-19T05:42:59.694Z</lastmod>
+        <lastmod>2018-12-19T07:32:15.044Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
