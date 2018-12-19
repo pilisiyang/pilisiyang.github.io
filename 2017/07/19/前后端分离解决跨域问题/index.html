@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          DevOps与CI/CD - plsy | blog
+          前后端分离解决跨域问题 - plsy | blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/11/17/DevOps与CI-CD/">
+    <link rel="canonical" href="http://yoursite-url/2017/07/19/前后端分离解决跨域问题/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,14 +86,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#devops" title="devops">devops</a>
+                              <a class="tag" href="/tags/#node.js" title="node.js">node.js</a>
+                            
+                              <a class="tag" href="/tags/#spring security" title="spring security">spring security</a>
                             
                         </div>
-                        <h1>DevOps与CI/CD</h1>
+                        <h1>前后端分离解决跨域问题</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by pilisiyang on
-                            2018-11-17
+                            2017-07-19
                         </span>
                         <span id="busuanzi_container_page_pv">
                           本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -211,114 +213,54 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="devops与cicd简介">DevOps与ci/cd简介</span></h1>
-<h2><span id="什么是devops">什么是DevOps</span></h2>
+                <h2><span id="什么是跨域">什么是跨域</span></h2>
 <blockquote>
-<p><strong>DevOps</strong>（Development和Operations的组合词）是一种重视“软件开发人员（Dev）”和“IT运维技术人员（Ops）”之间沟通合作的文化、运动或惯例。<br>
-透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。<br>
-DevOps经常被描述为“开发团队与运营团队之间更具协作性、更高效的关系”。由于团队间协作关系的改善，整个组织的效率因此得到提升，伴随频繁变化而来的生产环境的风险也能得到降低。</p>
+<p>跨域是指从一个域名的网页去请求另一个域名的资源，域名、端口、协议任一不同，都算作跨域。</p>
+<p>基于安全考虑，浏览器对于javascript的同源策略的限制。</p>
 </blockquote>
-<p>AWS对DevOps模式做了一个完整的定义:</p>
+<h2><span id="前端跨域">前端跨域</span></h2>
+<p>我们前端项目中采用MVVM框架vue.js，2.0以后尤大推荐用axios与后台交互。</p>
+<p><strong>功能特性</strong></p>
 <blockquote>
-<p>DevOps集文化理念、实践和工具于一身。可以提高组织交付应用程序和服务的能力。与使用传统软件和基础设施管理流程相比，能够帮助组织更快的发展和改进产品。这种速度使组织更好的服务其客户，并在市场上高效的参与竞争。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/7YNrNcB.png" alt=""></p>
-<p>简单来说，DevOps希望做到的是软件产品交付过程中IT工具链的打通，使得各个团队减少时间损耗，更加高效地协同工作。</p>
-<p><img src="https://i.imgur.com/oWPubET.jpg" alt=""></p>
-<h4><span id="devops发展阶段">DevOps发展阶段</span></h4>
-<blockquote>
-<p>软件行业的研发模式，可以发现大致有三个阶段：瀑布式开发、敏捷开发、DevOps。</p>
-<p>DevOps的概念很早就有，但是为什么最近两年才开始受到越来越多的企业重视和实践呢？</p>
-<p>因为现在有越来越多的技术支撑。微服务架构理念、容器技术使得DevOps的实施变得更加容易，计算能力提升和云环境的发展使得快速开发的产品可以立刻获得更广泛的使用。</p>
-<p>DevOps的实现可以基于新兴的容器技术；也可以在自动化运维工具Puppet、SaltStack、Ansible之后的延伸；还可以构建在传统的Cloud Foundry、OpenShift等PaaS厂商之上。</p>
-</blockquote>
-<h4><span id="devops的好处">DevOps的好处</span></h4>
-<pre><code>最大的好处就是可以高效交付，这也正好是它的初衷。
-</code></pre>
-<blockquote>
-<p>Puppet和DevOps Research and Assessment (DORA) 主办了2016年DevOps调查报告，根据全球4600位各IT公司的技术工作者的提交数据统计，得出高效公司平均每年可以完成1460次部署。与低效组织相比，高效组织的部署频繁200倍，产品投入使用速度快2555倍，服务恢复速度快24倍。在工作内容的时间分配上，低效者要多花22%的时间用在为规划好或者重复工作上，而高效者却可以多花29%的时间用在新的工作上。所以这里的高效不仅仅指公司产出的效率提高，还指员工的工作质量得到提升。</p>
-</blockquote>
-<h4><span id="对应用程序发布的影响">对应用程序发布的影响</span></h4>
-<p>在很多企业中，应用程序发布是一项涉及多个团队、压力很大、风险很高的活动。然而在具备DevOps能力的组织中，应用程序发布的风险很低，原因如下：</p>
 <ul>
-<li>减少变更范围</li>
+<li>在浏览器中发送 XMLHttpRequests 请求</li>
+<li>在 node.js 中发送 http请求</li>
+<li>支持 Promise API</li>
+<li>拦截请求和响应</li>
+<li>转换请求和响应数据</li>
+<li>自动转换 JSON 数据</li>
+<li>客户端支持保护安全免受 XSRF 攻击</li>
 </ul>
-<blockquote>
-<p>与传统的瀑布式开发模型相比，采用敏捷或迭代式开发意味着更频繁的发布、每次发布包含的变化更少。由于部署经常进行，因此每次部署不会对生产系统造成巨大影响，应用程序会以平滑的速率逐渐生长。</p>
 </blockquote>
-<ul>
-<li>加强发布协调</li>
-</ul>
+<p>vue cli脚手架搭建只需要在config目录下的index.js增加changeOrigin的配置即可</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dev</span>: &#123;</span><br><span class="line">    <span class="attribute">env</span>: require(<span class="string">'./dev.env'</span>),</span><br><span class="line">    <span class="attribute">port</span>: <span class="number">8080</span>,</span><br><span class="line">    <span class="attribute">autoOpenBrowser</span>: true,</span><br><span class="line">    <span class="attribute">assetsSubDirectory</span>: <span class="string">'static'</span>,</span><br><span class="line">    <span class="attribute">assetsPublicPath</span>: <span class="string">'/'</span>,</span><br><span class="line">    <span class="attribute">proxyTable</span>: &#123;</span><br><span class="line">      <span class="string">'/api'</span>: &#123;</span><br><span class="line">        <span class="attribute">target</span>: <span class="string">'http://localhost:8004'</span>,</span><br><span class="line">        **changeOrigin**: true,</span><br><span class="line">        <span class="attribute">pathRewrite</span>: &#123;</span><br><span class="line">          <span class="string">'^/api'</span>: <span class="string">''</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>还需要注意的是，axios 默认是没有携带 cookie 的，如果后台项目是用 session 认证用户信息的话，每次请求的 sessionId 是不一样的。</p>
+<p>需要在axios配置中将 withCredentials 设置为 true。</p>
+<p>正式环境中，vue.js 代码会被 build 成 html 文件在 nginx 中部署，转发请求到后端服务。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">      <span class="attribute">proxy_pass</span> http://web-server/;</span><br><span class="line">      <span class="attribute">proxy_connect_timeout</span> <span class="number">600</span>;</span><br><span class="line">      <span class="attribute">proxy_read_timeout</span> <span class="number">600</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="后端跨域">后端跨域</span></h3>
 <blockquote>
-<p>靠强有力的发布协调人来弥合开发与运营之间的技能鸿沟和沟通鸿沟；采用电子数据表、电话会议、即时消息、企业门户（wiki、sharepoint）等协作工具来确保所有相关人员理解变更的内容并全力合作。</p>
+<p>后端主要是通过跨域资源共享(CORS) 来实现允许跨域请求，它使用额外的 HTTP 头来告诉浏览器  让运行在一个 origin (domain) 上的Web应用被准许访问来自不同源服务器上的指定的资源。</p>
 </blockquote>
+<p>在 spring boot 中有两种跨域方式，在没有启用 spring security 时，直接在请求的controller层注解，类或者方法上都可以，其中 @CrossOrigin 中的2个参数：</p>
 <ul>
-<li>自动化</li>
+<li>origins  ： 允许可访问的域列表</li>
+<li>maxAge：准备响应前的缓存持续的最大时间（以秒为单位）。</li>
 </ul>
-<blockquote>
-<p>强大的部署自动化手段确保部署任务的可重复性、减少部署出错的可能性。</p>
-</blockquote>
-<h4><span id="应用发布流程">应用发布流程</span></h4>
-<p><img src="https://i.imgur.com/IEhUHLA.jpg" alt=""></p>
-<pre><code>有的公司还会有预发布环境和灰度测试
-</code></pre>
-<h2><span id="什么是cicd">什么是CI/CD？</span></h2>
-<pre><code>CI/CD包含两个独立而又互补的部分。
-</code></pre>
-<ul>
-<li>
-<p><strong>持续集成</strong>是指在应用代码的新组件集成到共享存储库之后自动测试和构建软件的流程。这样一来，就可以打造出始终处于工作状态的应用“版本”。持续集成流程中纳入了单元测试，因而可以验证软件的功能。这样可以提前识别错误，并避免反馈回路后期的周期浪费。</p>
-</li>
-<li>
-<p><strong>持续交付</strong>是指将CI流程中创建的应用交付到类似生产环境的过程，在该过程中将对应用进行额外的自动化测试，以确保应用在部署到生产环境以及交付到真实用户手中时能够发挥预期作用。这样还可以确保最新构建版本能够以预期方式与其他软件和应用交互。成功的CD意味着，无论是通过自动化还是手动，构建版本都随时可以部署到生产环境。</p>
-</li>
-</ul>
-<h4><span id="cicd的重要意义">CI/CD的重要意义</span></h4>
-<ul>
-<li>基于业务要求按需部署软件</li>
-</ul>
-<blockquote>
-<p>采用CI/CD的团队只需几分钟即可将新应用代码部署到生产环境，并且可以在最符合业务需求的时候而不是按照预定的发布时间进行部署。</p>
-</blockquote>
-<ul>
-<li>降低软件在生产环境中无法正常运行的风险</li>
-</ul>
-<blockquote>
-<p>采用CI/CD，代码在交付之前会经过严密的自动化测试，从而大幅降低错误或问题代码进入生产环境的风险。</p>
-</blockquote>
-<ul>
-<li>实现根据客户反馈进行快速迭代</li>
-</ul>
-<blockquote>
-<p>CI/CD优化了敏捷方法和DevOps，它可以提供必要的功能，将向用户持续学习所得的经验付诸实践，使团队能够以小批量快速迭代和交付软件。</p>
-</blockquote>
-<ul>
-<li>加快发生故障时的恢复速度</li>
-</ul>
-<blockquote>
-<p>如果生产环境中发生故障（这种情况极少发生），CI/CD可以快速找出错误代码并将修复程序推送到生产环境，让团队能够缩短平均恢复时间(MTTR)，从而最大限度减少对最终用户的影响。</p>
-</blockquote>
-<h4><span id="环节">环节</span></h4>
-<ul>
-<li>代码仓库，用于存储程序源文件的地方。如：GitLab，Github</li>
-<li>构建，这是一个持续集成工具，用于编译、打包程序，运行单元测试 如：GitLab-ci，Jenkins</li>
-<li>测试，提供有关业务风险反馈的连续测试工具。 如：JUnit</li>
-<li>发布，快速上线部署，自动化发布。如：docker，k8s</li>
-<li>监控与日志，应用监控、基础日志，帮助快速定位问题。如：ElasticStack，zipkin</li>
-</ul>
-<h2><span id="在我们项目中的实际应用">在我们项目中的实际应用</span></h2>
-<p>在我们应用中的pipeline流程：<br>
-gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
-
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@CrossOrigin</span>(origins = <span class="string">"http://www.baidu.com"</span>, maxAge = <span class="number">3600</span>)</span><br><span class="line"><span class="variable">@Api</span>(tags = <span class="string">"数据源"</span>, description = <span class="string">"数据源业务类接口服务"</span>)</span><br><span class="line"><span class="variable">@RestController</span></span><br><span class="line"><span class="variable">@RequestMapping</span>(<span class="string">"/dataSource"</span>)</span><br><span class="line">public class DataSourceAction &#123;</span><br><span class="line"></span><br><span class="line">	<span class="variable">@Resource</span></span><br><span class="line">	private DataSourceService service;</span><br><span class="line"></span><br><span class="line">	<span class="variable">@CrossOrigin</span>()</span><br><span class="line">	<span class="variable">@ApiOperation</span>(<span class="string">"测试并保存数据源"</span>)</span><br><span class="line">	<span class="variable">@RequestMapping</span>(value = <span class="string">"/saveDataSource"</span>, method = RequestMethod.POST)</span><br><span class="line">	public void saveDataSource(<span class="variable">@RequestParam</span> Map&lt;String, Object&gt; map) throws Exception &#123;</span><br><span class="line">		<span class="selector-tag">service</span><span class="selector-class">.testAndSave</span>(map);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在启用 spring security 后，由 security 管理跨域设置，首先实例化    CorsConfigurationSource</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">CorsConfigurationSource corsConfigurationSource() &#123;</span><br><span class="line">    CorsConfiguration configuration = new CorsConfiguration();</span><br><span class="line">    configuration.setAllowedOrigins(AllowedOrigins.getAllowedOrigin());</span><br><span class="line">    configuration.setAllowedMethods(Arrays.asList(<span class="string">"<span class="keyword">GET</span>"</span>, <span class="string">"<span class="keyword">POST</span>"</span>, <span class="string">"<span class="keyword">OPTIONS</span>"</span>, <span class="string">"<span class="keyword">PUT</span>"</span>, <span class="string">"<span class="keyword">DELETE</span>"</span>));</span><br><span class="line">    configuration.setAllowedHeaders(Arrays.asList(<span class="string">"DNT"</span>, <span class="string">"X-Mx-ReqToken"</span>, <span class="string">"Keep-Alive"</span>, <span class="string">"User-Agent"</span>, <span class="string">"X-Requested-With"</span>, <span class="string">"Authorization"</span>, <span class="string">"If-Modified-Since"</span>, <span class="string">"Cache-Control"</span>, <span class="string">"Content-Type"</span>));</span><br><span class="line">    configuration.setAllowCredentials(true);</span><br><span class="line">    configuration.setMaxAge(3600L);</span><br><span class="line">    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span><br><span class="line">    source.registerCorsConfiguration(<span class="string">"/**"</span>, configuration);</span><br><span class="line">    return source;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再将 CorsConfigurationSource 注册到 security 配置项中</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">httpSecurity</span><span class="selector-class">.cors</span>()<span class="selector-class">.configurationSource</span>(<span class="selector-tag">corsConfigurationSource</span>());</span><br></pre></td></tr></table></figure>
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                    
-                        <li class="next">
-                            <a href="/2018/10/09/docker简介/" data-toggle="tooltip" data-placement="top" title="docker简介">Next Post &rarr;</a>
+                        <li class="previous">
+                            <a href="/2017/09/06/spring security/" data-toggle="tooltip" data-placement="top" title="security">&larr; Previous Post</a>
                         </li>
+                    
                     
                 </ul>
 
@@ -369,7 +311,7 @@ gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">DevOps与ci/cd简介</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">什么是DevOps</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.1.</span> <span class="toc-nav-text">DevOps发展阶段</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.2.</span> <span class="toc-nav-text">DevOps的好处</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.3.</span> <span class="toc-nav-text">对应用程序发布的影响</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.0.4.</span> <span class="toc-nav-text">应用发布流程</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">什么是CI/CD？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.0.1.</span> <span class="toc-nav-text">CI/CD的重要意义</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.0.2.</span> <span class="toc-nav-text">环节</span></a></li></ol></li></ol><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">在我们项目中的实际应用</span></a></li>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什么是跨域</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">前端跨域</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">后端跨域</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -389,7 +331,9 @@ gitlab -&gt; gitlab-ci -&gt; docker repository -&gt; rancher(k8s)</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#devops" title="devops">devops</a>
+                          <a class="tag" href="/tags/#node.js" title="node.js">node.js</a>
+                        
+                          <a class="tag" href="/tags/#spring security" title="spring security">spring security</a>
                         
                     </div>
                 </section>
