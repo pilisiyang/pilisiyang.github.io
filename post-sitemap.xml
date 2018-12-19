@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2018/06/15/jwt%E8%AF%A6%E8%A7%A3/</loc>
+        <lastmod>2018-12-19T08:58:30.179Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2017/09/09/spring%20security%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE/</loc>
         <lastmod>2018-12-19T08:56:40.946Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -25,14 +33,6 @@
     <url>
         <loc>http://yoursite-url/2017/09/06/spring%20security%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</loc>
         <lastmod>2018-12-19T07:30:15.611Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite-url/2018/06/15/jwt%E8%AF%A6%E8%A7%A3/</loc>
-        <lastmod>2018-12-18T10:40:34.561Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
