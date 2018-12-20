@@ -37,15 +37,15 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/spring-security/</loc>
-        <lastmod>2018-12-19T08:56:40.946Z</lastmod>
+        <loc>http://yoursite-url/tags/jwt/</loc>
+        <lastmod>2018-12-19T08:58:30.179Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/jwt/</loc>
-        <lastmod>2018-12-19T08:58:30.179Z</lastmod>
+        <loc>http://yoursite-url/tags/spring-security/</loc>
+        <lastmod>2018-12-20T07:15:51.334Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
