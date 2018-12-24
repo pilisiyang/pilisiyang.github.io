@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          用electron将vue.js项目打包成桌面应用 - plsy | blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2018/12/24/用electron将vue-js项目打包成桌面应用/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>用electron将vue.js项目打包成桌面应用</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by pilisiyang on
+                            2018-12-24
+                        </span>
+                        <span id="busuanzi_container_page_pv">
+                          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">plsy | blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <div class="row">
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="关于electron">关于Electron</span></h2>
+<blockquote>
+<p>Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。<br>
+Electron通过将Chromium和Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。</p>
+</blockquote>
+<p>按我的理解，就是用让你用 JavaScript 代码去操作系统的API，达到与原生应用相似的体验，当然GUI则是一个web界面，简而言之就是个chrome内核的浏览器。</p>
+<h2><span id="electron用法">Electron用法</span></h2>
+<p>Electron Application使用 JavaScript 开发，工作原理与方法与 node.js 相同，引入 electron 模块，包含了 Electron 提供的所有API和功能。</p>
+<blockquote>
+<p><a href="https://electronjs.org/docs" target="_blank" rel="noopener">electron官方文档</a></p>
+</blockquote>
+<h2><span id="项目需求">项目需求</span></h2>
+<blockquote>
+<p>为我们web端服务做的前期demo，功能上很简单，APP显示我们的web站点，当即时通讯有消息送达时，系统托盘需要闪烁，右键点击系统托盘需要有如下功能</p>
+<p><img src="https://i.imgur.com/S3o5uUM.png" alt=""></p>
+</blockquote>
+<h2><span id="功能实现">功能实现</span></h2>
+<h3><span id="app显示web站点">app显示web站点</span></h3>
+<p>引入 electron 模块，使用 BrowserWindow 类渲染窗口。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; app, BrowserWindow &#125; = <span class="keyword">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建主页面</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createWindow</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">        show: <span class="keyword">false</span>,</span><br><span class="line">        autoHideMenuBar: <span class="keyword">true</span>,</span><br><span class="line">        title: <span class="string">'ElectronApp'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//最大化</span></span><br><span class="line">    mainWindow.maximize();</span><br><span class="line">    <span class="comment">// 然后加载应用的 index.html。</span></span><br><span class="line">    mainWindow.loadFile(<span class="string">'./app/index.html'</span>);</span><br><span class="line">    <span class="comment">//窗口关闭时触发</span></span><br><span class="line">    mainWindow.on(<span class="string">'closed'</span>, () =&gt; &#123;</span><br><span class="line">        mainWindow = <span class="keyword">null</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//打开开发者工具</span></span><br><span class="line">    mainWindow.webContents.openDevTools();</span><br><span class="line">    <span class="comment">//渲染完成后</span></span><br><span class="line">    mainWindow.on(<span class="string">'ready-to-show'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//显示窗口</span></span><br><span class="line">        mainWindow.show();</span><br><span class="line">        <span class="comment">//页面聚焦</span></span><br><span class="line">        mainWindow.focus();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里加载html方法有两种：</p>
+<p>1.使用 loadURL(‘<a href="https://electronjs.org" target="_blank" rel="noopener">https://electronjs.org</a>’) 直接指向某个地址。</p>
+<p>2.使用 loadFile(’./app/index.html’) 指向html文件，在index页面中，使用 <webview> 标签加载 url 地址。</webview></p>
+<p>在实际使用中，第一种适配我们项目时有bug，推荐使用第二种加载方式。</p>
+</blockquote>
+<h3><span id="系统配置">系统配置</span></h3>
+<p>在 electron 模块中引入，globalShortcut（全局快捷键），Menu（菜单），Tray（托盘），ipcMain(异步通信)，shell（系统命令）。</p>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;app, BrowserWindow, globalShortcut, Menu, Tray, ipcMain, shell&#125; = <span class="keyword">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tray</span><br><span class="line"><span class="comment">//托盘右键菜单</span></span><br><span class="line"><span class="keyword">let</span> template = [</span><br><span class="line">    &#123;</span><br><span class="line">        label: <span class="string">'访问地址、快捷键、开机启动设置'</span>, click: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            createConfig();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        label: <span class="string">'打开主界面'</span>, click: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            mainWindow.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        label: <span class="string">'即时通讯'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        label: <span class="string">'使用系统浏览器打开web站点'</span>, click: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            shell.openExternal(configuration.readSettings(<span class="string">'global_url'</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        label: <span class="string">"退出"</span>, role: <span class="string">'quit'</span></span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">app.on(<span class="string">'ready'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">//创建窗口</span></span><br><span class="line">    createWindow();</span><br><span class="line">    <span class="comment">//系统托盘</span></span><br><span class="line">    tray = <span class="keyword">new</span> Tray(<span class="string">'./app/img/app-icon.ico'</span>);</span><br><span class="line">    <span class="comment">//设置此托盘图标的悬停提示内容</span></span><br><span class="line">    tray.setToolTip(<span class="string">'中科天翔'</span>);</span><br><span class="line">    <span class="keyword">const</span> contextMenu = Menu.buildFromTemplate(template);</span><br><span class="line">    tray.setContextMenu(contextMenu);</span><br><span class="line">    tray.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//闪烁时点击弹出即时通讯页面</span></span><br><span class="line">        <span class="keyword">if</span> (flashTrayTimer) &#123;</span><br><span class="line">            mainWindow.show();</span><br><span class="line">            <span class="comment">//显示即时通讯</span></span><br><span class="line">            mainWindow.webContents.send(<span class="string">'ping'</span>, <span class="string">'openMessage'</span>);</span><br><span class="line">            <span class="comment">//停止闪烁</span></span><br><span class="line">            flashTray(<span class="keyword">false</span>);</span><br><span class="line">            tray.setImage(<span class="string">'./app/img/app-icon.ico'</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//主窗口显示隐藏切换</span></span><br><span class="line">            mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//设置默认配置参数</span></span><br><span class="line">    setBootStart();</span><br><span class="line">    <span class="comment">//设置全局快捷键</span></span><br><span class="line">    setGlobalShortcuts();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4><span id="即时通讯闪烁图标">即时通讯闪烁图标</span></h4>
+<blockquote>
+<p>整体思路大概是这样的，通过事件监听cookie变化，web端即时通讯收到消息以后，将 cookie 值变为 new ，触发异步通信 ipcRenderer 发送消息，ipcMain 监听消息 ，触发函数开始闪烁图标（就是将图标与空白图标来回切换），当然打开托盘即时通讯也有类似操作。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//收到消息</span></span><br><span class="line">webview.addEventListener(<span class="string">'dom-ready'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> currCookies = webview.getWebContents().session.cookies;</span><br><span class="line">    webview.getWebContents().openDevTools();</span><br><span class="line">    <span class="comment">//监听cookie</span></span><br><span class="line">    currCookies.addListener(<span class="string">'changed'</span>, (event, cookie, cause, removed) =&gt; &#123;</span><br><span class="line">        <span class="comment">//客户端打开即时通讯</span></span><br><span class="line">        <span class="keyword">if</span> (cookie.name == <span class="string">'electron'</span> &amp;&amp; cookie.value == <span class="string">'open'</span>) &#123;</span><br><span class="line">            ipcRenderer.send(<span class="string">'open-message'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//有新消息提醒闪烁</span></span><br><span class="line">        <span class="keyword">if</span> (cookie.name == <span class="string">'electron'</span> &amp;&amp; cookie.value == <span class="string">'new'</span>) &#123;</span><br><span class="line">            ipcRenderer.send(<span class="string">'receive-message'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//即时通讯</span></span><br><span class="line">ipcMain.on(<span class="string">'receive-message'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//先关闭再闪烁</span></span><br><span class="line">    flashTray(<span class="keyword">false</span>);</span><br><span class="line">    tray.setImage(<span class="string">'./app/img/app-icon.ico'</span>);</span><br><span class="line">    flashTray(<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ipcMain.on(<span class="string">'open-message'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//关闭托盘闪烁</span></span><br><span class="line">    flashTray(<span class="keyword">false</span>);</span><br><span class="line">    tray.setImage(<span class="string">'./app/img/app-icon.ico'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4><span id="修改配置">修改配置</span></h4>
+<blockquote>
+<p>修改配置思路比较简单，通过 nconf 模块，将配置保存在本地，app初始化的时候读取配置。</p>
+</blockquote>
+<h4><span id="唤醒隐藏界面快捷键">唤醒/隐藏界面快捷键</span></h4>
+<blockquote>
+<p>在配置界面的html中，将唤醒/隐藏界面的 input 标签加上 onkeydown 事件，来监听用户键盘按键操作，保存时写入配置文件。</p>
+</blockquote>
+
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/11/17/DevOps与CI-CD/" data-toggle="tooltip" data-placement="top" title="DevOps与CI/CD">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- Valine评论框 start -->
+                <div id="vcomment" class="comment"></div>
+                <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+                <script>
+                   var notify = 'false' == true ? true : false;
+                   var verify = 'false' == true ? true : false;
+                   var visitor = 'true // 阅读量统计' == true ? true : false;
+                   new Valine({
+                            av: AV,
+                            el: '#vcomment',
+                            notify: notify,
+                            verify: verify,
+                            visitor: visitor,
+                            app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
+                            app_key: "ouKekTXGSS27MkKPnCN4pwLj",
+                            placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+                            avatar: "",
+                            avatar_cdn: "https://sdn.geekzu.org/avatar/",
+                            pageSize: 15
+                    });
+                    if(window.location.hash){
+                        var checkExist = setInterval(function() {
+                           if ($(window.location.hash).length) {
+                              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                              clearInterval(checkExist);
+                           }
+                        }, 100);
+                    }
+                </script>
+
+                <!-- Valine评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">关于Electron</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Electron用法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">项目需求</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">功能实现</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">app显示web站点</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">系统配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.1.</span> <span class="toc-nav-text">即时通讯闪烁图标</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.2.</span> <span class="toc-nav-text">修改配置</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.3.</span> <span class="toc-nav-text">唤醒/隐藏界面快捷键</span></a></li></ol></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; pilisiyang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '18b7c530577ede2dfed4a52a8a4400f9';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
