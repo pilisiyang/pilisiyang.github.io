@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          用WebMagic爬虫框架爬取国家统计局区划代码 - plsy | blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2017/12/25/用WebMagic爬虫框架爬取国家统计局区划代码/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#爬虫" title="爬虫">爬虫</a>
+                            
+                        </div>
+                        <h1>用WebMagic爬虫框架爬取国家统计局区划代码</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by pilisiyang on
+                            2017-12-25
+                        </span>
+                        <span id="busuanzi_container_page_pv">
+                          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">plsy | blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <div class="row">
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3><span id="背景">背景</span></h3>
+<blockquote>
+<p>项目涉及到行政区划，需要全国对应的行政区划代码，从省级到乡级，行政区划代码虽然不会变，但是每年也会有撤县设市或者改县为区这样的情况，为了保持这份数据的即时性，就需要每年跟随国家统计局政务网站更新。</p>
+</blockquote>
+<p><a href="http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/" target="_blank" rel="noopener">2017年统计用区划代码和城乡划分代码(截止2017年10月31日)</a></p>
+<h3><span id="webmagic">WebMagic</span></h3>
+<blockquote>
+<p>java的爬虫框架有很多，WebMagic 使用起来比较简单，结构化模块也很容易扩展。</p>
+<p><a href="http://webmagic.io/docs/zh/" target="_blank" rel="noopener">webmagic文档</a></p>
+<p>WebMagic爬虫主要分为三个模块，PageProcessor，Selectable，Pipeline。</p>
+</blockquote>
+<h4><span id="pageprocessor">PageProcessor</span></h4>
+<p>PageProcessor 主要用来定义爬虫的配置、页面元素的抽取和链接的发现。<br>
+官网给的列子如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GithubRepoPageProcessor</span> <span class="keyword">implements</span> <span class="title">PageProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 部分一：抓取网站的相关配置，包括编码、抓取间隔、重试次数等</span></span><br><span class="line">    <span class="keyword">private</span> Site site = Site.me().setRetryTimes(<span class="number">3</span>).setSleepTime(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Page page)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 部分二：定义如何抽取页面信息，并保存下来</span></span><br><span class="line">        page.putField(<span class="string">"author"</span>, page.getUrl().regex(<span class="string">"https://github\\.com/(\\w+)/.*"</span>).toString());</span><br><span class="line">        page.putField(<span class="string">"name"</span>, page.getHtml().xpath(<span class="string">"//h1[@class='entry-title public']/strong/a/text()"</span>).toString());</span><br><span class="line">        <span class="keyword">if</span> (page.getResultItems().get(<span class="string">"name"</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//skip this page</span></span><br><span class="line">            page.setSkip(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        page.putField(<span class="string">"readme"</span>, page.getHtml().xpath(<span class="string">"//div[@id='readme']/tidyText()"</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 部分三：从页面发现后续的url地址来抓取</span></span><br><span class="line">        page.addTargetRequests(page.getHtml().links().regex(<span class="string">"(https://github\\.com/[\\w\\-]+/[\\w\\-]+)"</span>).all());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Site <span class="title">getSite</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> site;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Spider.create(<span class="keyword">new</span> GithubRepoPageProcessor())</span><br><span class="line">                <span class="comment">//从"https://github.com/code4craft"开始抓</span></span><br><span class="line">                .addUrl(<span class="string">"https://github.com/code4craft"</span>)</span><br><span class="line">                <span class="comment">//开启5个线程抓取</span></span><br><span class="line">                .thread(<span class="number">5</span>)</span><br><span class="line">                <span class="comment">//启动爬虫</span></span><br><span class="line">                .run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中 Site 主要用来定义爬虫的配置，包括编码、抓取间隔、超时时间、重试次数等，也包括一些模拟的参数，例如User Agent、cookie，以及代理的设置。</p>
+</blockquote>
+<h4><span id="selectable">Selectable</span></h4>
+<blockquote>
+<p>Selectable 是 WebMagic 抽取元素的链式API，简单来说就是根据特定的方法抽取html页面的信息。</p>
+</blockquote>
+<h4><span id="pipeline">Pipeline</span></h4>
+<blockquote>
+<p>这部分是用来保存爬取结果的组件，WebMagic 内置了一部分，ConsolePipeline（输出到控制台），JsonFilePipeline（保存成json文件），FilePipeline（保存成文件），像我们项目中，如果需要保存到 MySQL 中，就需要自定义 Pipeline 来实现了。</p>
+</blockquote>
+<h3><span id="实现">实现</span></h3>
+<p><img src="https://i.imgur.com/L9lhZTa.png" alt=""></p>
+<blockquote>
+<p>可以看到html页面中特点很明显，省级被 class 为 provincetr 的 tr 包围，每一个 td 的 a 标签内容就是省市名，href 属性就是省市 code ，子连接点进去就是下一级行政规划。</p>
+</blockquote>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> us.codecraft.webmagic.Page;</span><br><span class="line"><span class="keyword">import</span> us.codecraft.webmagic.Site;</span><br><span class="line"><span class="keyword">import</span> us.codecraft.webmagic.processor.PageProcessor;</span><br><span class="line"><span class="keyword">import</span> us.codecraft.webmagic.selector.Selectable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.<span class="keyword">HashMap</span>;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.gsoft.area.spider.SpiderCommon.SPIDER_URL;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.regex.Pattern.compile;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于webmagic 爬取国家统计局行政规划数据</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author plsy</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> class AreaSpider implements PageProcessor &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 抓取网站的相关配置，包括编码、抓取间隔、重试次数等</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Site site = Site.me().setRetryTimes(<span class="number">3</span>).setSleepTime(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 爬取数据的年度标识,用于区分批次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> <span class="built_in">year</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 爬取从省级到包含的那一级数据</span></span><br><span class="line"><span class="comment">     * 例如: contain = "city,county";  即爬取省级到县级数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> contain;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> AreaSpider(<span class="keyword">String</span> <span class="built_in">year</span>, <span class="keyword">String</span> contain) &#123;</span><br><span class="line">        <span class="keyword">this</span>.<span class="built_in">year</span> = <span class="built_in">year</span>;</span><br><span class="line">        <span class="keyword">this</span>.contain = contain;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> process(Page page) &#123;</span><br><span class="line">        page.setCharset(<span class="string">"UTF-8"</span>);</span><br><span class="line">        <span class="keyword">String</span> url = page.getUrl().toString();</span><br><span class="line">        <span class="keyword">String</span>[] replaceUrl = url.replace(SPIDER_URL, <span class="string">""</span>).replace(<span class="string">".html"</span>, <span class="string">""</span>).<span class="built_in">split</span>(<span class="string">"/"</span>);</span><br><span class="line">        <span class="keyword">if</span> (url.matches(SPIDER_URL + <span class="string">"index.html"</span>)) &#123;</span><br><span class="line">            <span class="comment">//抓取省级行政区划</span></span><br><span class="line">            List&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt; province = page.getHtml().xpath(<span class="string">"//tr[@class='provincetr']/td"</span>).nodes().stream()</span><br><span class="line">                    .<span class="built_in">filter</span>(selectable -&gt; selectable.xpath(<span class="string">"//a/text()"</span>) != <span class="keyword">null</span>)</span><br><span class="line">                    .<span class="built_in">filter</span>(selectable -&gt; selectable.links().all().<span class="built_in">size</span>() &gt; <span class="number">0</span>)</span><br><span class="line">                    .<span class="built_in">map</span>(selectable -&gt; &#123;</span><br><span class="line">                        <span class="keyword">String</span> name = selectable.xpath(<span class="string">"//a/text()"</span>).toString();</span><br><span class="line">                        <span class="keyword">String</span> newUrl = selectable.links().all().<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                        <span class="keyword">if</span> (contain.contains(<span class="string">"city"</span>)) &#123;</span><br><span class="line">                            page.addTargetRequest(newUrl);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">String</span> replace = newUrl.replace(SPIDER_URL, <span class="string">""</span>).replace(<span class="string">".html"</span>, <span class="string">""</span>);</span><br><span class="line">                        <span class="keyword">String</span> areaCode = replace + <span class="string">"0000"</span>;</span><br><span class="line">                        <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_NAME"</span>, name);</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_CODE"</span>, areaCode);</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_LEVEL"</span>, <span class="number">1</span>);</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_CASCADE"</span>, <span class="string">"/"</span>);</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_PARENT_CODE"</span>, <span class="number">0</span>L);</span><br><span class="line">                        <span class="built_in">map</span>.put(<span class="string">"C_YEAR"</span>, <span class="built_in">year</span>);</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">map</span>;</span><br><span class="line">                    &#125;).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">            page.putField(<span class="string">"area"</span>, province);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//抓取市级行政单位</span></span><br><span class="line">        <span class="keyword">if</span> (replaceUrl.length == <span class="number">1</span> &amp;&amp; !replaceUrl[<span class="number">0</span>].equals(<span class="string">"index"</span>) &amp;&amp; contain.contains(<span class="string">"city"</span>)) &#123;</span><br><span class="line">            List&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt; city = <span class="keyword">new</span> ArrayList&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt;();</span><br><span class="line">            List&lt;Selectable&gt; cityNodes = page.getHtml().xpath(<span class="string">"//tr[@class='citytr']/td"</span>).nodes();</span><br><span class="line">            cityNodes.stream().forEach(node -&gt; &#123;</span><br><span class="line">                <span class="keyword">String</span> name = node.xpath(<span class="string">"//a/text()"</span>).toString();</span><br><span class="line">                <span class="keyword">if</span> (!compile(<span class="string">"[0-9]*"</span>).matcher(name).matches()) &#123;</span><br><span class="line">                    <span class="keyword">String</span> newUrl = node.links().all().<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">if</span> (contain.contains(<span class="string">"county"</span>)) &#123;</span><br><span class="line">                        page.addTargetRequest(newUrl);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">String</span> replace = newUrl.replace(SPIDER_URL, <span class="string">""</span>).replace(<span class="string">".html"</span>, <span class="string">""</span>);</span><br><span class="line">                    <span class="keyword">String</span>[] <span class="built_in">split</span> = replace.<span class="built_in">split</span>(<span class="string">"/"</span>);</span><br><span class="line">                    <span class="keyword">String</span> parentId = <span class="built_in">split</span>[<span class="number">0</span>] + <span class="string">"0000"</span>;</span><br><span class="line">                    <span class="keyword">String</span> areaCode = <span class="built_in">split</span>[<span class="built_in">split</span>.length - <span class="number">1</span>] + <span class="string">"00"</span>;</span><br><span class="line">                    <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_NAME"</span>, name);</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_CODE"</span>, areaCode);</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_LEVEL"</span>, <span class="number">2</span>);</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_CASCADE"</span>, <span class="string">"/"</span> + parentId + <span class="string">"/"</span> + areaCode);</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_PARENT_CODE"</span>, Long.valueOf(parentId));</span><br><span class="line">                    <span class="built_in">map</span>.put(<span class="string">"C_YEAR"</span>, <span class="built_in">year</span>);</span><br><span class="line">                    city.<span class="built_in">add</span>(<span class="built_in">map</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            page.putField(<span class="string">"area"</span>, city);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//抓取县级行政单位</span></span><br><span class="line">        <span class="keyword">if</span> (replaceUrl.length == <span class="number">2</span> &amp;&amp; contain.contains(<span class="string">"county"</span>)) &#123;</span><br><span class="line">            List&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt; county = <span class="keyword">new</span> ArrayList&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt;();</span><br><span class="line">            List&lt;Selectable&gt; countyNodes = page.getHtml().xpath(<span class="string">"//tr[@class='countytr']/td"</span>).nodes();</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; countyNodes.<span class="built_in">size</span>(); i += <span class="number">2</span>) &#123;</span><br><span class="line">                List&lt;<span class="keyword">String</span>&gt; code = countyNodes.<span class="built_in">get</span>(i).xpath(<span class="string">"//*/text()"</span>).all();</span><br><span class="line">                List&lt;<span class="keyword">String</span>&gt; name = countyNodes.<span class="built_in">get</span>(i + <span class="number">1</span>).xpath(<span class="string">"//*/text()"</span>).all();</span><br><span class="line">                <span class="keyword">String</span> areaCode = code.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">String</span> areaName = name.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (code.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    areaCode = code.<span class="built_in">get</span>(<span class="number">1</span>);</span><br><span class="line">                    areaName = name.<span class="built_in">get</span>(<span class="number">1</span>);</span><br><span class="line">                    <span class="keyword">String</span> newUrl = countyNodes.<span class="built_in">get</span>(i).links().all().<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">if</span> (contain.contains(<span class="string">"town"</span>)) &#123;</span><br><span class="line">                        page.addTargetRequest(newUrl);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                areaCode = areaCode.substring(<span class="number">0</span>, <span class="number">6</span>);</span><br><span class="line">                <span class="keyword">String</span> parentId = areaCode.substring(<span class="number">0</span>, <span class="number">4</span>) + <span class="string">"00"</span>;</span><br><span class="line">                <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_NAME"</span>, areaName);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CODE"</span>, areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_LEVEL"</span>, <span class="number">3</span>);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CASCADE"</span>, <span class="string">"/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">2</span>) + <span class="string">"0000/"</span> + parentId + <span class="string">"/"</span> + areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_PARENT_CODE"</span>, Long.valueOf(parentId));</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_YEAR"</span>, <span class="built_in">year</span>);</span><br><span class="line">                county.<span class="built_in">add</span>(<span class="built_in">map</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            page.putField(<span class="string">"area"</span>, county);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//抓取镇级行政单位</span></span><br><span class="line">        <span class="keyword">if</span> (replaceUrl.length == <span class="number">3</span> &amp;&amp; contain.contains(<span class="string">"town"</span>)) &#123;</span><br><span class="line">            List&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt; town = <span class="keyword">new</span> ArrayList&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt;();</span><br><span class="line">            List&lt;Selectable&gt; countyNodes = page.getHtml().xpath(<span class="string">"//tr[@class='towntr']/td"</span>).nodes();</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; countyNodes.<span class="built_in">size</span>(); i += <span class="number">2</span>) &#123;</span><br><span class="line">                List&lt;<span class="keyword">String</span>&gt; code = countyNodes.<span class="built_in">get</span>(i).xpath(<span class="string">"//*/text()"</span>).all();</span><br><span class="line">                List&lt;<span class="keyword">String</span>&gt; name = countyNodes.<span class="built_in">get</span>(i + <span class="number">1</span>).xpath(<span class="string">"//*/text()"</span>).all();</span><br><span class="line">                <span class="keyword">String</span> areaCode = code.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">String</span> areaName = name.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (code.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    areaCode = code.<span class="built_in">get</span>(<span class="number">1</span>);</span><br><span class="line">                    areaName = name.<span class="built_in">get</span>(<span class="number">1</span>);</span><br><span class="line">                    <span class="keyword">String</span> newUrl = countyNodes.<span class="built_in">get</span>(i).links().all().<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">if</span> (contain.contains(<span class="string">"village"</span>)) &#123;</span><br><span class="line">                        page.addTargetRequest(newUrl);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                areaCode = areaCode.substring(<span class="number">0</span>, <span class="number">9</span>);</span><br><span class="line">                <span class="keyword">String</span> parentId = areaCode.substring(<span class="number">0</span>, <span class="number">6</span>);</span><br><span class="line">                <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_NAME"</span>, areaName);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CODE"</span>, areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_LEVEL"</span>, <span class="number">4</span>);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CASCADE"</span>, <span class="string">"/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">2</span>) + <span class="string">"0000/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">4</span>) + <span class="string">"00/"</span> + parentId + <span class="string">"/"</span> + areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_PARENT_CODE"</span>, Long.valueOf(parentId));</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_YEAR"</span>, <span class="built_in">year</span>);</span><br><span class="line">                town.<span class="built_in">add</span>(<span class="built_in">map</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            page.putField(<span class="string">"area"</span>, town);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//抓取乡级行政单位</span></span><br><span class="line">        <span class="keyword">if</span> (replaceUrl.length == <span class="number">4</span> &amp;&amp; contain.contains(<span class="string">"village"</span>)) &#123;</span><br><span class="line">            List&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt; village = <span class="keyword">new</span> ArrayList&lt;Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;&gt;();</span><br><span class="line">            List&lt;Selectable&gt; countyNodes = page.getHtml().xpath(<span class="string">"//tr[@class='villagetr']/td"</span>).nodes();</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; countyNodes.<span class="built_in">size</span>(); i += <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="keyword">String</span> areaCode = countyNodes.<span class="built_in">get</span>(i).xpath(<span class="string">"//*/text()"</span>).<span class="built_in">get</span>();</span><br><span class="line">                <span class="keyword">String</span> areaName = countyNodes.<span class="built_in">get</span>(i + <span class="number">2</span>).xpath(<span class="string">"//*/text()"</span>).<span class="built_in">get</span>();</span><br><span class="line">                <span class="keyword">String</span> parentId = areaCode.substring(<span class="number">0</span>, <span class="number">9</span>);</span><br><span class="line">                <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_NAME"</span>, areaName);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CODE"</span>, areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_LEVEL"</span>, <span class="number">4</span>);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_CASCADE"</span>, <span class="string">"/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">2</span>) + <span class="string">"0000/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">4</span>) + <span class="string">"00/"</span> + areaCode.substring(<span class="number">0</span>, <span class="number">6</span>) + <span class="string">"/"</span> + parentId + <span class="string">"/"</span> + areaCode);</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_PARENT_CODE"</span>, Long.valueOf(parentId));</span><br><span class="line">                <span class="built_in">map</span>.put(<span class="string">"C_YEAR"</span>, <span class="built_in">year</span>);</span><br><span class="line">                village.<span class="built_in">add</span>(<span class="built_in">map</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            page.putField(<span class="string">"area"</span>, village);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> Site getSite() &#123;</span><br><span class="line">        <span class="keyword">return</span> site;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这样的特征找到每层行政区划，使用 page.putField 保存起来，再使用自定义的 SqlPipeline 将数据保存到 MySQL 中。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.gsoft.cos3.table.service.SingleTableService;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.springframework.stereotype.Component;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> us.codecraft.webmagic.ResultItems;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> us.codecraft.webmagic.Task;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> us.codecraft.webmagic.pipeline.Pipeline;</span></span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.util.List;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.util.Map;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * webmagic 处理爬虫抽取结果</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author plsy</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@Component</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlPipeline</span> <span class="keyword">implements</span> <span class="title">Pipeline</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    SingleTableService singleTableService;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> process(ResultItems resultItems, Task task) &#123;</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; area = resultItems.get(<span class="string">"area"</span>);</span><br><span class="line">        <span class="keyword">if</span> (area.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(resultItems.getRequest().getUrl() + <span class="string">" 此页面未爬取数据,请稍后重试!"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            area.stream().forEach(stringObjectMap -&gt; &#123;</span><br><span class="line">                singleTableService.save(<span class="string">"cos_sys_administrative_area"</span>, stringObjectMap);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/04/18/用OpenCV识别图片中的二维码并截取/" data-toggle="tooltip" data-placement="top" title="用OpenCV识别图片中的二维码并截取">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/10/08/spring security的核心过滤器/" data-toggle="tooltip" data-placement="top" title="spring security的核心过滤器">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- Valine评论框 start -->
+                <div id="vcomment" class="comment"></div>
+                <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+                <script>
+                   var notify = 'false' == true ? true : false;
+                   var verify = 'false' == true ? true : false;
+                   var visitor = 'true // 阅读量统计' == true ? true : false;
+                   new Valine({
+                            av: AV,
+                            el: '#vcomment',
+                            notify: notify,
+                            verify: verify,
+                            visitor: visitor,
+                            app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
+                            app_key: "ouKekTXGSS27MkKPnCN4pwLj",
+                            placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+                            avatar: "",
+                            avatar_cdn: "https://sdn.geekzu.org/avatar/",
+                            pageSize: 15
+                    });
+                    if(window.location.hash){
+                        var checkExist = setInterval(function() {
+                           if ($(window.location.hash).length) {
+                              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                              clearInterval(checkExist);
+                           }
+                        }, 100);
+                    }
+                </script>
+
+                <!-- Valine评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">背景</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">WebMagic</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">PageProcessor</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Selectable</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Pipeline</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">实现</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#爬虫" title="爬虫">爬虫</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; pilisiyang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '18b7c530577ede2dfed4a52a8a4400f9';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
