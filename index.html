@@ -130,6 +130,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -138,13 +145,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -204,6 +204,42 @@
 
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/12/26/项目在Rancher环境遇到的问题/">
+        <h2 class="post-title">
+            项目在Rancher环境遇到的问题
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+spring cloud项目用rancher部署的时候，eureka 注册的问题。
+
+
+在rancher部署一个 Deployment 以后，它随即创建了一个 类型为 ClusterIP 的 service 还有相应的 pod ，每个 Pod 被分配一个独立的IP地址，service 和 pod 的网络命名空间是不同的。
+
+这就导致了以前那种微服务往 eureka 里注册 IP 的方法行不......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by pilisiyang on
+            2018-12-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#rancher" title="rancher">rancher</a>
+            
+              <a href="/tags/#k8s" title="k8s">k8s</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -518,44 +554,6 @@ spring security 最核心的注解就是 @EnableWebSecurity了：
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/09/06/spring security的核心组件/">
-        <h2 class="post-title">
-            spring security的核心组件
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            关于验证的核心组件
-介绍几个 spring security 中的核心组件
-
-SecurityContextHolder
-Authentication
-AuthenticationManager
-AuthenticationProvider
-UserDetailsService
-
-SecurityContextHolder
-SecurityContextHolder是存放安全上下文（secu......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by pilisiyang on
-            2017-09-06
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#spring security" title="spring security">spring security</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -608,9 +606,13 @@ SecurityContextHolder是存放安全上下文（secu......
             
         
             
-            <a href="/tags/#node.js" title="node.js" rel="2">node.js</a>
+        
             
         
+            
+        
+            
+            <a href="/tags/#node.js" title="node.js" rel="2">node.js</a>
             
         
     </div>
@@ -692,6 +694,10 @@ SecurityContextHolder是存放安全上下文（secu......
     <ul>
       
         <li>
+          <a href="/2018/12/26/项目在Rancher环境遇到的问题/">项目在Rancher环境遇到的问题</a>
+        </li>
+      
+        <li>
           <a href="/2018/11/17/DevOps与CI-CD/">DevOps与CI/CD</a>
         </li>
       
@@ -707,10 +713,6 @@ SecurityContextHolder是存放安全上下文（secu......
           <a href="/2018/07/24/用electron将vue-js项目打包成桌面应用/">用electron将vue.js项目打包成桌面应用</a>
         </li>
       
-        <li>
-          <a href="/2018/06/15/jwt详解/">jwt详解</a>
-        </li>
-      
     </ul>
   </div>
 </h5>
@@ -719,7 +721,7 @@ SecurityContextHolder是存放安全上下文（secu......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li></ul>
     </div>
 
         <hr>
