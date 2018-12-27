@@ -214,13 +214,13 @@
                 <h3><span id="eureka注册的时候使用basic验证">eureka注册的时候使用Basic验证</span></h3>
 <blockquote>
 <p>在 bootstrap.properties 修改注册 eureka 配置</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; eureka<span class="selector-class">.client</span><span class="selector-class">.serviceUrl</span><span class="selector-class">.defaultZone</span>=http:<span class="comment">//$&#123;用户名&#125;:$&#123;密码&#125;@127.0.0.1:8888/eureka/</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eureka<span class="selector-class">.client</span><span class="selector-class">.serviceUrl</span><span class="selector-class">.defaultZone</span>=http:<span class="comment">//$&#123;用户名&#125;:$&#123;密码&#125;@127.0.0.1:8888/eureka/</span></span><br></pre></td></tr></table></figure>
 <h3><span id="spring-security配置basic验证">spring security配置Basic验证</span></h3>
 <blockquote>
 <p>在 bootstrap.properties 配置</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; management<span class="selector-class">.security</span><span class="selector-class">.enabled</span>=true</span><br><span class="line">&gt; security<span class="selector-class">.user</span><span class="selector-class">.name</span>=$&#123;用户名&#125;</span><br><span class="line">&gt; security<span class="selector-class">.user</span><span class="selector-class">.password</span>=$&#123;密码&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management<span class="selector-class">.security</span><span class="selector-class">.enabled</span>=true</span><br><span class="line">security<span class="selector-class">.user</span><span class="selector-class">.name</span>=$&#123;用户名&#125;</span><br><span class="line">security<span class="selector-class">.user</span><span class="selector-class">.password</span>=$&#123;密码&#125;</span><br></pre></td></tr></table></figure>
 <h3><span id="feign调用时带上basic验证">Feign调用时带上Basic验证</span></h3>
 <blockquote>
 <p>首先配置 Feign 的 Configuration 类</p>
