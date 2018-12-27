@@ -65,15 +65,22 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/devops/</loc>
-        <lastmod>2018-12-27T07:22:58.039Z</lastmod>
+        <loc>http://yoursite-url/tags/docker/</loc>
+        <lastmod>2018-12-27T07:25:06.432Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/docker/</loc>
-        <lastmod>2018-12-27T07:22:58.039Z</lastmod>
+        <loc>http://yoursite-url/tags/devops/</loc>
+        <lastmod>2018-12-27T07:25:06.432Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/spring-cloud/</loc>
+        <lastmod>2018-12-27T08:22:57.863Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

@@ -7,8 +7,16 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2017/06/05/spring%20cloud%E4%B8%AD%E4%BD%BF%E7%94%A8Basic%E9%AA%8C%E8%AF%81/</loc>
+        <lastmod>2018-12-27T08:22:57.863Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2018/10/27/%E4%BD%BF%E7%94%A8GitLab%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</loc>
-        <lastmod>2018-12-27T07:22:58.039Z</lastmod>
+        <lastmod>2018-12-27T07:25:06.432Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
