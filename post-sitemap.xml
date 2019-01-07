@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2019/01/07/%E9%99%90%E5%88%B6%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84JVM%E8%B5%84%E6%BA%90/</loc>
+        <lastmod>2019-01-07T10:34:18.215Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2018/08/24/%E5%A4%9A%E7%A7%9F%E6%88%B7%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+        <lastmod>2018-12-28T03:10:33.130Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2017/06/05/spring%20cloud%E4%B8%AD%E4%BD%BF%E7%94%A8Basic%E9%AA%8C%E8%AF%81/</loc>
         <lastmod>2018-12-27T08:26:14.635Z</lastmod>
         <changefreq>weekly</changefreq>

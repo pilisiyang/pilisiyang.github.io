@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          使用GitLab持续集成 - plsy | blog
+          多租户的实现 - plsy | blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/10/27/使用GitLab持续集成/">
+    <link rel="canonical" href="http://yoursite-url/2018/08/24/多租户的实现/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,16 +86,12 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#devops" title="devops">devops</a>
-                            
-                              <a class="tag" href="/tags/#docker" title="docker">docker</a>
-                            
                         </div>
-                        <h1>使用GitLab持续集成</h1>
+                        <h1>多租户的实现</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by pilisiyang on
-                            2018-10-27
+                            2018-08-24
                         </span>
                         <span id="busuanzi_container_page_pv">
                           本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -213,60 +209,19 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="gitlab-ci">GitLab CI</span></h2>
-<p><img src="https://i.imgur.com/ve8p4nU.png" alt=""></p>
-<p>GitLab 内置了 CI/CD 功能，能用于构建，测试和部署我们的应用程序，要使用这些功能，必须满足下面条件:</p>
-<ul>
-<li>配置 GitLab Runner 负责运行CI / CD管道中的作业</li>
-<li>GitLab 提供了专门编写CD/CD的配置文件，需要在每个项目中配置 .gitlab-ci.yml</li>
-</ul>
-<blockquote>
-<p><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Quick Start</a></p>
-</blockquote>
-<h3><span id="gitlab-runner">GitLab Runner</span></h3>
-<p><img src="https://i.imgur.com/jJrMHdS.png" alt=""></p>
-<blockquote>
-<p>GitLab Runner 是一个开源项目，用于运行作业并将结果发送回 GitLab ，简单来说就是负责将 GitLab 上的代码，根据 .gitlab-ci.yml 编写的规则运行作业，在我们的项目中，负责测试代码，构建镜像。</p>
-</blockquote>
-<h4><span id="安装gitlab-runner">安装GitLab Runner</span></h4>
-<p>GitLab Runner可以在GNU / Linux，macOS，FreeBSD和Windows上安装和使用，也可以使用Docker安装，或者手动下载二进制文件或使用GitLab提供的rpm/deb软件包的存储库。</p>
-<blockquote>
-<p>我们项目中是在 Rancher 运行的，使用镜像 gitlab/gitlab-runner:alpine ，官方文档上使用的是 gitlab/gitlab-runner:latest ，alpine的镜像比较小。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/b0iI52q.png" alt=""></p>
-<blockquote>
-<p>部署的时候需要做两个挂载，配置 GitLab Runner 。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/gJsqhyb.png" alt=""><br>
-<img src="https://i.imgur.com/15dcs42.png" alt=""></p>
-<blockquote>
-<p>部署完以后需要将此 Runner 注册进 GitLab，进入 docker 容器，注册 runner，输入 GitLab Runners 管理界面中的 URL 和 注册令牌。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/WBanNyV.png" alt=""></p>
-<p><img src="https://i.imgur.com/Llg8x7e.png" alt=""></p>
-<blockquote>
-<p>注册成功以后，这个 GitLab Runner 就完成了。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/cDfs2vl.png" alt=""></p>
-<h4><span id="gitlab-ciyml">.gitlab-ci.yml</span></h4>
-<blockquote>
-<p>从7.12版本开始，GitLab CI使用YAML 文件进行项目的配置，默认放在根目录。</p>
-<p><a href="https://docs.gitlab.com/ee/ci/yaml/README.html" target="_blank" rel="noopener">配置文档</a></p>
-</blockquote>
-<p>在项目中配置 Dockerfile 配合 gitlab-ci.yml 打包成镜像 push 到镜像仓库。</p>
-
+                
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/11/17/DevOps与CI-CD/" data-toggle="tooltip" data-placement="top" title="DevOps与CI/CD">&larr; Previous Post</a>
+                            <a href="/2018/09/06/flyway数据库版本管理工具/" data-toggle="tooltip" data-placement="top" title="flyway数据库版本管理工具">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/10/09/docker简介/" data-toggle="tooltip" data-placement="top" title="docker简介">Next Post &rarr;</a>
+                            <a href="/2018/07/24/用electron将vue-js项目打包成桌面应用/" data-toggle="tooltip" data-placement="top" title="用electron将vue.js项目打包成桌面应用">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -318,7 +273,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">GitLab CI</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">GitLab Runner</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">安装GitLab Runner</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">.gitlab-ci.yml</span></a></li></ol></li></ol></li></ol>
+          <ol class="nav">none</ol>
         
         </div>
       </aside>
@@ -338,10 +293,6 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#devops" title="devops">devops</a>
-                        
-                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
-                        
                     </div>
                 </section>
                 

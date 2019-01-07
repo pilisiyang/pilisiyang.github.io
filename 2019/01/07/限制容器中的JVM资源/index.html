@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          使用GitLab持续集成 - plsy | blog
+          限制容器中的JVM资源 - plsy | blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/10/27/使用GitLab持续集成/">
+    <link rel="canonical" href="http://yoursite-url/2019/01/07/限制容器中的JVM资源/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -86,16 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#devops" title="devops">devops</a>
-                            
                               <a class="tag" href="/tags/#docker" title="docker">docker</a>
                             
                         </div>
-                        <h1>使用GitLab持续集成</h1>
+                        <h1>限制容器中的JVM资源</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by pilisiyang on
-                            2018-10-27
+                            2019-01-07
                         </span>
                         <span id="busuanzi_container_page_pv">
                           本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -213,60 +211,37 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="gitlab-ci">GitLab CI</span></h2>
-<p><img src="https://i.imgur.com/ve8p4nU.png" alt=""></p>
-<p>GitLab 内置了 CI/CD 功能，能用于构建，测试和部署我们的应用程序，要使用这些功能，必须满足下面条件:</p>
-<ul>
-<li>配置 GitLab Runner 负责运行CI / CD管道中的作业</li>
-<li>GitLab 提供了专门编写CD/CD的配置文件，需要在每个项目中配置 .gitlab-ci.yml</li>
-</ul>
+                <h2><span id="java与容器">java与容器</span></h2>
+<p>之前用rancher部署就遇到过没限制容器内存大小导致K8S集群挂掉的问题，但是仅仅限制容器资源是不够的，jdk1.8中java程序是不能自动识别docker设置的内存，cpu限制的，这就会导致当java程序运行时占的内存过大时，容器会杀掉JVM进程，而健康检查又会拉起一个新的pod，进而导致服务一天重启很多次。</p>
 <blockquote>
-<p><a href="https://docs.gitlab.com/ee/ci/quick_start/README.html" target="_blank" rel="noopener">Quick Start</a></p>
+<p>jdk11默认支持了容器，由参数 UseContainerSupport = true 来设置，在之前的jdk中，Java 8u131 以上版本支持 Docker 的 cpu 和memory 限制，使用参数 -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap</p>
 </blockquote>
-<h3><span id="gitlab-runner">GitLab Runner</span></h3>
-<p><img src="https://i.imgur.com/jJrMHdS.png" alt=""></p>
+<h2><span id="在容器中对jvm调优">在容器中对JVM调优</span></h2>
+<p>默认情况下，JVM的Max Heap Size是系统内存的1/4，实际中，这点heap是不够的，会导致受限制的容器启动失败，只有加大容器的资源才能正常启动，除此之外还有一种方法，就要对容器里面的 jvm 调优。</p>
+<p>但是这里遇到了一个问题，dockerfile 配置</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:8-jdk-alpine</span><br><span class="line"><span class="built_in">..</span>.</span><br><span class="line">ENTRYPOINT java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.<span class="attribute">egd</span>=file:/dev/./urandom -Dspring.profiles.<span class="attribute">active</span>=docker -jar /<span class="variable">$name</span></span><br></pre></td></tr></table></figure>
+<p>这样启动后 JVM 的 pid 为1，使用 jmap，jinfo，jstack等命令时会报出错误：</p>
 <blockquote>
-<p>GitLab Runner 是一个开源项目，用于运行作业并将结果发送回 GitLab ，简单来说就是负责将 GitLab 上的代码，根据 .gitlab-ci.yml 编写的规则运行作业，在我们的项目中，负责测试代码，构建镜像。</p>
+<p>Unable to get pid of LinuxThreads manager thread</p>
 </blockquote>
-<h4><span id="安装gitlab-runner">安装GitLab Runner</span></h4>
-<p>GitLab Runner可以在GNU / Linux，macOS，FreeBSD和Windows上安装和使用，也可以使用Docker安装，或者手动下载二进制文件或使用GitLab提供的rpm/deb软件包的存储库。</p>
-<blockquote>
-<p>我们项目中是在 Rancher 运行的，使用镜像 gitlab/gitlab-runner:alpine ，官方文档上使用的是 gitlab/gitlab-runner:latest ，alpine的镜像比较小。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/b0iI52q.png" alt=""></p>
-<blockquote>
-<p>部署的时候需要做两个挂载，配置 GitLab Runner 。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/gJsqhyb.png" alt=""><br>
-<img src="https://i.imgur.com/15dcs42.png" alt=""></p>
-<blockquote>
-<p>部署完以后需要将此 Runner 注册进 GitLab，进入 docker 容器，注册 runner，输入 GitLab Runners 管理界面中的 URL 和 注册令牌。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/WBanNyV.png" alt=""></p>
-<p><img src="https://i.imgur.com/Llg8x7e.png" alt=""></p>
-<blockquote>
-<p>注册成功以后，这个 GitLab Runner 就完成了。</p>
-</blockquote>
-<p><img src="https://i.imgur.com/cDfs2vl.png" alt=""></p>
-<h4><span id="gitlab-ciyml">.gitlab-ci.yml</span></h4>
-<blockquote>
-<p>从7.12版本开始，GitLab CI使用YAML 文件进行项目的配置，默认放在根目录。</p>
-<p><a href="https://docs.gitlab.com/ee/ci/yaml/README.html" target="_blank" rel="noopener">配置文档</a></p>
-</blockquote>
-<p>在项目中配置 Dockerfile 配合 gitlab-ci.yml 打包成镜像 push 到镜像仓库。</p>
+<p><a href="https://github.com/docker-library/openjdk/issues/76" target="_blank" rel="noopener">openjdk issues</a></p>
+<p>docker容器默认会把容器内部第一个进程，也就是pid=1的程序作为docker容器是否正在运行的依据，所以这里可以用一个容器 init 解决：</p>
+<p><a href="https://github.com/krallin/tini#tini---a-tiny-but-valid-init-for-containers" target="_blank" rel="noopener">https://github.com/krallin/tini#tini—a-tiny-but-valid-init-for-containers</a></p>
+<p>修改 dockerfile 配置，使用 tini 来启动 jvm</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">..</span>.</span><br><span class="line"><span class="builtin-name">RUN</span> apk <span class="builtin-name">add</span> --no-cache tini</span><br><span class="line">ENTRYPOINT [<span class="string">"/sbin/tini"</span>, <span class="string">"--"</span>]</span><br><span class="line">CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.<span class="attribute">egd</span>=file:/dev/./urandom -Dspring.profiles.<span class="attribute">active</span>=docker -jar /<span class="variable">$name</span></span><br><span class="line"><span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+<p>rancher 控制台中限制容器内存<br>
+<img src="https://i.imgur.com/qHEuhPX.png" alt=""></p>
+<p>进入容器查看jvm，可以看到pid=1的程序已经是tini了，接下来就可以使用jvm 命令查看各个参数，可以看到 MaxHeapSize=411041792 ，差不多392mb，正好是内存限制1568mb的1/4<br>
+<img src="https://i.imgur.com/6V226QP.png" alt=""></p>
 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/11/17/DevOps与CI-CD/" data-toggle="tooltip" data-placement="top" title="DevOps与CI/CD">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/10/09/docker简介/" data-toggle="tooltip" data-placement="top" title="docker简介">Next Post &rarr;</a>
+                            <a href="/2018/12/26/项目在Rancher环境遇到的问题/" data-toggle="tooltip" data-placement="top" title="项目在Rancher环境遇到的问题">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -318,7 +293,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">GitLab CI</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">GitLab Runner</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">安装GitLab Runner</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">.gitlab-ci.yml</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">java与容器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">在容器中对JVM调优</span></a></li></ol>
         
         </div>
       </aside>
@@ -338,8 +313,6 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#devops" title="devops">devops</a>
-                        
                           <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
                     </div>
