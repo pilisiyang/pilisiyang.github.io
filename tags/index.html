@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -194,34 +194,100 @@
             <!-- 标签云 -->
             <div id="tag_cloud" class="tags">
                 
-                    <a href="#devops" title="devops" rel="2">devops</a>
-                
                     <a href="#jwt" title="jwt" rel="1">jwt</a>
-                
-                    <a href="#spring security" title="spring security" rel="4">spring security</a>
                 
                     <a href="#flyway" title="flyway" rel="1">flyway</a>
                 
                     <a href="#数据库" title="数据库" rel="1">数据库</a>
                 
-                    <a href="#docker" title="docker" rel="3">docker</a>
+                    <a href="#devops" title="devops" rel="2">devops</a>
                 
-                    <a href="#OpenCV" title="OpenCV" rel="1">OpenCV</a>
+                    <a href="#spring security" title="spring security" rel="4">spring security</a>
+                
+                    <a href="#docker" title="docker" rel="3">docker</a>
                 
                     <a href="#spring cloud" title="spring cloud" rel="1">spring cloud</a>
                 
-                    <a href="#爬虫" title="爬虫" rel="1">爬虫</a>
-                
                     <a href="#node.js" title="node.js" rel="2">node.js</a>
+                
+                    <a href="#爬虫" title="爬虫" rel="1">爬虫</a>
                 
                     <a href="#rancher" title="rancher" rel="1">rancher</a>
                 
                     <a href="#k8s" title="k8s" rel="1">k8s</a>
                 
+                    <a href="#OpenCV" title="OpenCV" rel="1">OpenCV</a>
+                
             </div>
 
             <!-- 标签列表 -->
 
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="jwt">
+                    <span class="tag-text">jwt</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/06/15/jwt详解/">
+                        <h2 class="post-title">
+                            jwt详解
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="flyway">
+                    <span class="tag-text">flyway</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/09/06/flyway数据库版本管理工具/">
+                        <h2 class="post-title">
+                            flyway数据库版本管理工具
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="数据库">
+                    <span class="tag-text">数据库</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/09/06/flyway数据库版本管理工具/">
+                        <h2 class="post-title">
+                            flyway数据库版本管理工具
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
             
             <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="devops">
@@ -251,28 +317,6 @@
                      <a href="/2018/10/27/使用GitLab持续集成/">
                         <h2 class="post-title">
                             使用GitLab持续集成
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="jwt">
-                    <span class="tag-text">jwt</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/06/15/jwt详解/">
-                        <h2 class="post-title">
-                            jwt详解
                         </h2>
                         
                     </a>
@@ -322,21 +366,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2017/09/09/spring security的核心配置/">
-                        <h2 class="post-title">
-                            spring security的核心配置
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
                      <a href="/2017/07/19/前后端分离解决跨域问题/">
                         <h2 class="post-title">
                             前后端分离解决跨域问题
@@ -347,43 +376,14 @@
                 </div>
                 <hr>
                 
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="flyway">
-                    <span class="tag-text">flyway</span>
-                </span>
-                
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/09/06/flyway数据库版本管理工具/">
+                     <a href="/2017/09/09/spring security的核心配置/">
                         <h2 class="post-title">
-                            flyway数据库版本管理工具
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="数据库">
-                    <span class="tag-text">数据库</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/09/06/flyway数据库版本管理工具/">
-                        <h2 class="post-title">
-                            flyway数据库版本管理工具
+                            spring security的核心配置
                         </h2>
                         
                     </a>
@@ -446,28 +446,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="OpenCV">
-                    <span class="tag-text">OpenCV</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/04/18/用OpenCV识别图片中的二维码并截取/">
-                        <h2 class="post-title">
-                            用OpenCV识别图片中的二维码并截取
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="spring cloud">
                     <span class="tag-text">spring cloud</span>
                 </span>
@@ -480,28 +458,6 @@
                      <a href="/2017/06/05/spring cloud中使用Basic验证/">
                         <h2 class="post-title">
                             spring cloud中使用Basic验证
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="爬虫">
-                    <span class="tag-text">爬虫</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2017/12/25/用WebMagic爬虫框架爬取国家统计局区划代码/">
-                        <h2 class="post-title">
-                            用WebMagic爬虫框架爬取国家统计局区划代码
                         </h2>
                         
                     </a>
@@ -549,6 +505,28 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="爬虫">
+                    <span class="tag-text">爬虫</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2017/12/25/用WebMagic爬虫框架爬取国家统计局区划代码/">
+                        <h2 class="post-title">
+                            用WebMagic爬虫框架爬取国家统计局区划代码
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="rancher">
                     <span class="tag-text">rancher</span>
                 </span>
@@ -583,6 +561,28 @@
                      <a href="/2018/12/26/项目在Rancher环境遇到的问题/">
                         <h2 class="post-title">
                             项目在Rancher环境遇到的问题
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="OpenCV">
+                    <span class="tag-text">OpenCV</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/04/18/用OpenCV识别图片中的二维码并截取/">
+                        <h2 class="post-title">
+                            用OpenCV识别图片中的二维码并截取
                         </h2>
                         
                     </a>
