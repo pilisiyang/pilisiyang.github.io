@@ -87,14 +87,14 @@
 
     <url>
         <loc>http://yoursite-url/tags/spring-gateway/</loc>
-        <lastmod>2019-02-22T02:26:07.402Z</lastmod>
+        <lastmod>2019-02-22T02:29:46.215Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite-url/tags/spring-webflux/</loc>
-        <lastmod>2019-02-22T02:26:07.402Z</lastmod>
+        <lastmod>2019-02-22T02:29:46.215Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
