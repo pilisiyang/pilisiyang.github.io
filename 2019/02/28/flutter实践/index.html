@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          flutter实践 - plsy | blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2019/02/28/flutter实践/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Flutter" title="Flutter">Flutter</a>
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                        </div>
+                        <h1>flutter实践</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by pilisiyang on
+                            2019-02-28
+                        </span>
+                        <span id="busuanzi_container_page_pv">
+                          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">plsy | blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <div class="row">
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3><span id="项目背景">项目背景</span></h3>
+<blockquote>
+<p>项目需要从钉钉微应用跳转 WPS 打开 word 文档，但是 WPS 只提供了 StartActivity 方式携带参数跳转应用，deeplink 只能打开应用，而钉钉微应用只支持 deeplink ，所以需要搭建一个中间跳转的app工具。</p>
+</blockquote>
+<h3><span id="flutter">Flutter</span></h3>
+<pre><code>Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。
+</code></pre>
+<p>flutter使用dart语言，是将来谷歌新操作系统 Fuchsia 的主要构建方式，组件使用响应式框架构建，使用组件构建 UI ，组件可以改变状态，提供热加载，最大的特点是同时在iOS和Android系统中开发应用，支持混合开发。</p>
+<h3><span id="获取-deeplink-路径">获取 deeplink 路径</span></h3>
+<p>在flutter应用中导入 uni_links 包，接收deeplink:</p>
+<blockquote>
+<p>在 pubspec.yaml 文件 dependencies 下增加  uni_links: ^0.1.4 ，记得执行 flutter packages get</p>
+</blockquote>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstPageState</span> <span class="keyword">extends</span> <span class="title">State&lt;FirstPage&gt;</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">  void initState() &#123;</span><br><span class="line">	...</span><br><span class="line">      getInitialUri().then((<span class="type">Uri</span> url) &#123;</span><br><span class="line">        print(<span class="symbol">'URL</span> received: $url');</span><br><span class="line">        <span class="keyword">if</span> (url != <span class="literal">null</span> &amp;&amp; url.scheme == <span class="symbol">'gsof</span>t') &#123;</span><br><span class="line">          map.addAll(url.queryParameters);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">	...</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>执行 getInitialUri 方法可以拿到 deeplink 的路径，获取传递的参数。</p>
+</blockquote>
+<h3><span id="通过-startactivity-方式启动wps">通过 StartActivity 方式启动WPS</span></h3>
+<p>flutter应用与原生之间交互需要通过插件模式：</p>
+<blockquote>
+<p>定义 plugin，两边 plugin 名需要一致</p>
+</blockquote>
+<p>flutter端：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstPageState</span> <span class="keyword">extends</span> <span class="title">State&lt;FirstPage&gt;</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">	 const demoPlugin = const <span class="type">MethodChannel</span>(<span class="symbol">'wps</span>.plugin');</span><br><span class="line">     demoPlugin.invokeMethod(<span class="symbol">'interactio</span>n', map);</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>android端：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> MainActivity <span class="keyword">extends</span> FlutterActivity &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANNEL = <span class="string">"wps.plugin"</span>;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 跳转wps</span></span><br><span class="line">        <span class="keyword">new</span> MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(<span class="keyword">new</span> MethodChannel.MethodCallHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onMethodCall(MethodCall <span class="keyword">call</span>, MethodChannel.Result result) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">call</span>.method.equals(<span class="string">"interaction"</span>)) &#123;</span><br><span class="line">                    String fileUrl = <span class="keyword">call</span>.argument(<span class="string">"fileUrl"</span>);</span><br><span class="line">                    Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">                    <span class="comment">//打开文档参数-打开模式</span></span><br><span class="line">                    Object openMode = <span class="keyword">call</span>.argument(<span class="string">"OpenMode"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (openMode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putString(WpsModel.OPEN_MODE, String.valueOf(openMode));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//打开文档参数-打开直接进入编辑模式</span></span><br><span class="line">                    Object editMode = <span class="keyword">call</span>.argument(<span class="string">"EditMode"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (editMode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putBoolean(<span class="string">"Edit Mode"</span>, <span class="keyword">Boolean</span>.valueOf(editMode.toString()));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//文档记录-删除使用记录</span></span><br><span class="line">                    Object clearTrace = <span class="keyword">call</span>.argument(<span class="string">"ClearTrace"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (clearTrace != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putBoolean(<span class="string">"ClearTrace"</span>, <span class="keyword">Boolean</span>.valueOf(clearTrace.toString()));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//文档初始化参数-自动跳转</span></span><br><span class="line">                    Object autoJump = <span class="keyword">call</span>.argument(<span class="string">"AutoJump"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (autoJump != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putBoolean(<span class="string">"AutoJump"</span>, <span class="keyword">Boolean</span>.valueOf(autoJump.toString()));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//修订相关参数-打开文档是否显示修订批注面板</span></span><br><span class="line">                    Object showReviewingPaneRightDefault = <span class="keyword">call</span>.argument(<span class="string">"ShowReviewingPaneRightDefault"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (showReviewingPaneRightDefault != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putBoolean(<span class="string">"ShowReviewingPaneRightDefault"</span>, <span class="keyword">Boolean</span>.valueOf(showReviewingPaneRightDefault.toString()));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//修订相关参数-修订模式打开文档</span></span><br><span class="line">                    Object enterReviseMode = <span class="keyword">call</span>.argument(<span class="string">"EnterReviseMode"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (enterReviseMode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putBoolean(<span class="string">"EnterReviseMode"</span>, <span class="keyword">Boolean</span>.valueOf(enterReviseMode.toString()));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//水印相关参数-设置水印文字内容</span></span><br><span class="line">                    Object waterMaskText = <span class="keyword">call</span>.argument(<span class="string">"WaterMaskText"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (waterMaskText != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putString(<span class="string">"WaterMaskText"</span>, String.valueOf(waterMaskText));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//批注-批注的作者</span></span><br><span class="line">                    Object userName = <span class="keyword">call</span>.argument(<span class="string">"UserName"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (userName != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        bundle.putString(<span class="string">"UserName"</span>, String.valueOf(userName));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//文件保存时发送广播</span></span><br><span class="line">                    bundle.putBoolean(<span class="string">"SendSaveBroad"</span>, <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">                    <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(fileUrl);</span><br><span class="line"></span><br><span class="line">                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);</span><br><span class="line">                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);</span><br><span class="line">                    Uri contentUri = FileProvider.getUriForFile(MainActivity.<span class="keyword">this</span>,</span><br><span class="line">                            BuildConfig.APPLICATION_ID + <span class="string">".provider"</span>, <span class="keyword">file</span>);</span><br><span class="line">                    intent.setData(contentUri);</span><br><span class="line">                    intent.putExtras(bundle);</span><br><span class="line"></span><br><span class="line">                    intent.setAction(android.content.Intent.ACTION_VIEW);</span><br><span class="line">                    intent.setClassName(WpsModel.PackageName.PRO, WpsModel.ClassName.NORMAL);</span><br><span class="line">                    MainActivity.<span class="keyword">this</span>.startActivity(intent);</span><br><span class="line"></span><br><span class="line">                    result.success(<span class="string">"success"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    result.notImplemented();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        GeneratedPluginRegistrant.registerWith(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="wps保存文件操作后广播">WPS保存文件操作后广播</span></h3>
+<blockquote>
+<p>原生安卓端接收 WPS 广播后，传递给 flutter 处理。</p>
+</blockquote>
+<p>android端：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SAVED_CHANNEL = <span class="string">"saved.wps.plugin"</span>;</span><br><span class="line">...</span><br><span class="line">        <span class="comment">//接收wps广播</span></span><br><span class="line">        <span class="keyword">new</span> EventChannel(getFlutterView(), SAVED_CHANNEL)</span><br><span class="line">                .setStreamHandler(<span class="keyword">new</span> EventChannel.StreamHandler() &#123;</span><br><span class="line">                    <span class="keyword">private</span> BroadcastReceiver savedReceiver;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onListen</span><span class="params">(Object o, EventChannel.EventSink eventSink)</span> </span>&#123;</span><br><span class="line">                        savedReceiver = createSavedReceiver(eventSink);</span><br><span class="line">                        IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter();</span><br><span class="line">                        intentFilter.addAction(<span class="string">"cn.wps.moffice.broadcast.AfterSaved"</span>);</span><br><span class="line">                        registerReceiver(savedReceiver, intentFilter);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCancel</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">                        unregisterReceiver(savedReceiver);</span><br><span class="line">                        savedReceiver = <span class="keyword">null</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="function">BroadcastReceiver <span class="title">createSavedReceiver</span><span class="params">(<span class="keyword">final</span> EventChannel.EventSink events)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BroadcastReceiver() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (intent.getBooleanExtra(SAVE_AS, <span class="keyword">false</span>)) &#123;</span><br><span class="line">                    events.success(intent.getStringExtra(<span class="string">"CurrentPath"</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>flutter端：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> fromAndroidPlugin = <span class="function"><span class="keyword">const</span> <span class="title">EventChannel</span><span class="params">(<span class="string">'saved.wps.plugin'</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">_fromAndroidPlugin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fromAndroidPlugin</span><br><span class="line">        .receiveBroadcastStream()</span><br><span class="line">        .listen(_onFromAndroidEvent, onError: _onFromAndroidError);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">_onFromAndroidEvent</span><span class="params">(Object event)</span> </span>&#123;</span><br><span class="line">    print(<span class="string">"文件修改保存路径："</span> + event);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">_onFromAndroidError</span><span class="params">(Object <span class="keyword">error</span>)</span> </span>&#123;</span><br><span class="line">    print(<span class="keyword">error</span>);</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/02/21/spring gateway实践/" data-toggle="tooltip" data-placement="top" title="spring cloud gateway实践">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- Valine评论框 start -->
+                <div id="vcomment" class="comment"></div>
+                <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+                <script>
+                   var notify = 'false' == true ? true : false;
+                   var verify = 'false' == true ? true : false;
+                   var visitor = 'true // 阅读量统计' == true ? true : false;
+                   new Valine({
+                            av: AV,
+                            el: '#vcomment',
+                            notify: notify,
+                            verify: verify,
+                            visitor: visitor,
+                            app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
+                            app_key: "ouKekTXGSS27MkKPnCN4pwLj",
+                            placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+                            avatar: "",
+                            avatar_cdn: "https://sdn.geekzu.org/avatar/",
+                            pageSize: 15
+                    });
+                    if(window.location.hash){
+                        var checkExist = setInterval(function() {
+                           if ($(window.location.hash).length) {
+                              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                              clearInterval(checkExist);
+                           }
+                        }, 100);
+                    }
+                </script>
+
+                <!-- Valine评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">项目背景</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Flutter</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">获取 deeplink 路径</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">通过 StartActivity 方式启动WPS</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">WPS保存文件操作后广播</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Flutter" title="Flutter">Flutter</a>
+                        
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; pilisiyang 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '18b7c530577ede2dfed4a52a8a4400f9';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>

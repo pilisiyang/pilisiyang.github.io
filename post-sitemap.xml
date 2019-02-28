@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2019/02/28/flutter%E5%AE%9E%E8%B7%B5/</loc>
+        <lastmod>2019-02-28T05:59:01.969Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2019/02/21/spring%20gateway%E5%AE%9E%E8%B7%B5/</loc>
         <lastmod>2019-02-22T02:29:46.215Z</lastmod>
         <changefreq>weekly</changefreq>
