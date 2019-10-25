@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          乡财项目应用webflux改造接口 - plsy | blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2019/08/02/乡财项目应用webflux改造接口/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#spring webflux" title="spring webflux">spring webflux</a>
+                            
+                        </div>
+                        <h1>乡财项目应用webflux改造接口</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by pilisiyang on
+                            2019-08-02
+                        </span>
+                        <span id="busuanzi_container_page_pv">
+                          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">plsy | blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <div class="row">
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="项目框架spring-webflux">项目框架spring webflux</span></h2>
+<blockquote>
+<p>Spring boot 在 2.x 版本增添了新的框架 WebFlux。传统的web框架都是基于Servlet API与Servlet容器基础之上运行的，而WebFlux是一个典型非阻塞异步的框架，它的核心是基于Reactor的相关API实现的。相对于传统的web框架来说，它可以运行在诸如Netty，Undertow及支持Servlet3.1的容器上。</p>
+</blockquote>
+<h2><span id="什么是webflux">什么是webflux：</span></h2>
+<p><img src="https://i.imgur.com/MJq21BZ.jpg" alt=""></p>
+<blockquote>
+<p>右侧是spring 5.0 引入的基于Reactive Streams的Spring WebFlux框架，从上到下依次是Router Functions，WebFlux，Reactive Streams三个新组件。</p>
+</blockquote>
+<h3><span id="router-functions">Router Functions:</span></h3>
+<blockquote>
+<p>对标@Controller，@RequestMapping等标准的Spring MVC注解，提供一套函数式风格的API，用于创建Router，Handler和Filter。</p>
+</blockquote>
+<h3><span id="webflux">WebFlux:</span></h3>
+<blockquote>
+<p>核心组件，协调上下游各个组件提供响应式编程支持。</p>
+</blockquote>
+<h3><span id="reactive-streams">Reactive Streams:</span></h3>
+<blockquote>
+<p>一种支持背压（Backpressure背压是一种常用策略，使得发布者拥有无限制的缓冲区存储元素，用于确保发布者发布元素太快时，不会去压制订阅者。）的异步数据流处理标准，主流实现有RxJava和Reactor，Spring WebFlux默认集成的是Reactor。<br>
+在Web容器的选择上，Spring WebFlux既支持像Tomcat，Jetty这样的的传统容器（前提是支持Servlet 3.1 Non-Blocking IO API），又支持像Netty，Undertow那样的异步容器。不管是何种容器，Spring WebFlux都会将其输入输出流适配成Flux<databuffer>格式，以便进行统一处理。</databuffer></p>
+</blockquote>
+<h2><span id="webflux的优势">Webflux的优势</span></h2>
+<blockquote>
+<p>首先确定的是，非阻塞的处理方式规避了线程排队等待的情况，从而可以用少量而固定的线程处理应对大量请求的处理。他并不能提升程序的运行速度，但是在大规模同时请求时的吞吐量和响应时长能有显著改善。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/DI2OPGv.png" alt=""><br>
+<img src="https://i.imgur.com/ur1rrHW.png" alt=""></p>
+<h2><span id="webflux目前的不足">Webflux目前的不足</span></h2>
+<blockquote>
+<p>由于MySQL数据库是同步，官方暂时还没推出MySQL数据库驱动异步解决方案，目前只有Mongodb、redis、couchdb、Cassandra官方提供了异步驱动。</p>
+</blockquote>
+<h2><span id="项目结构">项目结构</span></h2>
+<p><img src="https://i.imgur.com/jxDSllY.png" alt=""></p>
+<blockquote>
+<p>项目结构上与spring boot 没有太大区别，其中handler是Router Functions的写法，还有一种与mvc类似的结构，两种不能混用，返回结果统一都是Mono或者Flux。</p>
+</blockquote>
+<h2><span id="webflux中使用filter">webflux中使用filter</span></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 业务记录日志filter</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> pilsy</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Order</span>(-<span class="number">1</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BusinessLogFilter</span> <span class="keyword">implements</span> <span class="title">WebFilter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(BusinessLogFilter.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> LogRepository logRepository;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PathPattern pathPattern;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BusinessLogFilter</span><span class="params">(LogRepository logRepository)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.logRepository = logRepository;</span><br><span class="line">        pathPattern = <span class="keyword">new</span> PathPatternParser().parse(<span class="string">"/bd-exchange/**"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ServerHttpRequest request = serverWebExchange.getRequest();</span><br><span class="line">        <span class="comment">// 匹配请求路径</span></span><br><span class="line">        <span class="keyword">if</span> (pathPattern.matches(request.getPath().pathWithinApplication())) &#123;</span><br><span class="line">            <span class="comment">// 匹配到业务请求记录日志</span></span><br><span class="line">            RequestPath path = request.getPath();</span><br><span class="line">            MultiValueMap&lt;String, String&gt; queryParams = request.getQueryParams();</span><br><span class="line">            String hostAddress = request.getRemoteAddress().getAddress().getHostAddress();</span><br><span class="line"></span><br><span class="line">            LogEntity logEntity = <span class="keyword">new</span> LogEntity();</span><br><span class="line">            logEntity.setPath(path.value());</span><br><span class="line">            logEntity.setQueryParams(queryParams.toString());</span><br><span class="line">            logEntity.setHostAddress(hostAddress);</span><br><span class="line">            <span class="comment">// 保存日志，并打印</span></span><br><span class="line">            Mono&lt;LogEntity&gt; mono = logRepository.save(logEntity);</span><br><span class="line">            mono.subscribe(entity -&gt; log.info(entity.toString()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> webFilterChain.filter(serverWebExchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="webflux中使用routerfunction">webflux中使用RouterFunction</span></h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 请求路由配置 RouterFunction</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> pilsy</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@Configuration</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouterConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ExchangeHandler exchangeHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthHandler authHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ErrorHandler errorHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ViewHandler viewHandler;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    <span class="keyword">public</span> RouterConfig(ExchangeHandler exchangeHandler, AuthHandler authHandler, ErrorHandler errorHandler, ViewHandler viewHandler) &#123;</span><br><span class="line">        this.exchangeHandler = exchangeHandler;</span><br><span class="line">        this.errorHandler = errorHandler;</span><br><span class="line">        this.viewHandler = viewHandler;</span><br><span class="line">        this.authHandler = authHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 业务请求路由</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @Bean</span><br><span class="line">    <span class="keyword">public</span> RouterFunction&lt;ServerResponse&gt; exchangeRouterFunction() &#123;</span><br><span class="line">        <span class="keyword">return</span> RouterFunctions</span><br><span class="line">                .route(POST(<span class="string">"/bd-exchange/services/validatePeople.do"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), exchangeHandler::validatePeople)</span><br><span class="line">                .andRoute(POST(<span class="string">"/bd-exchange/services/queryPeople.do"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), exchangeHandler::queryPeople);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 鉴权请求路由</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @Bean</span><br><span class="line">    <span class="keyword">public</span> RouterFunction&lt;ServerResponse&gt; AuthRouterFunction() &#123;</span><br><span class="line">        <span class="keyword">return</span> RouterFunctions</span><br><span class="line">                .route(GET(<span class="string">"/auth/error"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), errorHandler::authError)</span><br><span class="line">                .andRoute(GET(<span class="string">"/auth/getPage"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), authHandler::getPage)</span><br><span class="line">                .andRoute(POST(<span class="string">"/auth/save"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), authHandler::save)</span><br><span class="line">                .andRoute(GET(<span class="string">"/auth/delete/&#123;id&#125;"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), authHandler::delete)</span><br><span class="line">                .andRoute(GET(<span class="string">"/auth/getSecret"</span>).<span class="keyword">and</span>(accept(APPLICATION_JSON)), authHandler::getSecret);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * view页面路由</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @Bean</span><br><span class="line">    <span class="keyword">public</span> RouterFunction&lt;ServerResponse&gt; viewRoutesRegister() &#123;</span><br><span class="line">        <span class="keyword">return</span> RouterFunctions</span><br><span class="line">                .route(GET(<span class="string">"/index"</span>), viewHandler::loginPage)</span><br><span class="line">                .andRoute(GET(<span class="string">"/"</span>), viewHandler::loginPage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="webflux中调整request请求长度限制">webflux中调整request请求长度限制</span></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gsoft.xc.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.server.WebServerFactoryCustomizer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NettyConfiguration</span> <span class="keyword">implements</span> <span class="title">WebServerFactoryCustomizer</span>&lt;<span class="title">NettyReactiveWebServerFactory</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.max-initial-line-length:65536&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxInitialLingLength;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(NettyReactiveWebServerFactory container)</span> </span>&#123;</span><br><span class="line">        container.addServerCustomizers(</span><br><span class="line">                httpServer -&gt; httpServer.httpRequestDecoder(</span><br><span class="line">                        httpRequestDecoderSpec -&gt; httpRequestDecoderSpec.maxInitialLineLength(maxInitialLingLength)</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/02/28/flutter实践/" data-toggle="tooltip" data-placement="top" title="flutter实践">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- Valine评论框 start -->
+                <div id="vcomment" class="comment"></div>
+                <script src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+                <script>
+                   var notify = 'false' == true ? true : false;
+                   var verify = 'false' == true ? true : false;
+                   var visitor = 'true // 阅读量统计' == true ? true : false;
+                   new Valine({
+                            av: AV,
+                            el: '#vcomment',
+                            notify: notify,
+                            verify: verify,
+                            visitor: visitor,
+                            app_id: "1GEmr4IzAIM1XLR71XNWapFT-gzGzoHsz",
+                            app_key: "ouKekTXGSS27MkKPnCN4pwLj",
+                            placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+                            avatar: "",
+                            avatar_cdn: "https://sdn.geekzu.org/avatar/",
+                            pageSize: 15
+                    });
+                    if(window.location.hash){
+                        var checkExist = setInterval(function() {
+                           if ($(window.location.hash).length) {
+                              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                              clearInterval(checkExist);
+                           }
+                        }, 100);
+                    }
+                </script>
+
+                <!-- Valine评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">项目框架spring webflux</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什么是webflux：</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Router Functions:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">WebFlux:</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Reactive Streams:</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Webflux的优势</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Webflux目前的不足</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">项目结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">webflux中使用filter</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">webflux中使用RouterFunction</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">webflux中调整request请求长度限制</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#spring webflux" title="spring webflux">spring webflux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/pilisiyang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; pilisiyang 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '18b7c530577ede2dfed4a52a8a4400f9';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>

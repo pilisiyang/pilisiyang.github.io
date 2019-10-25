@@ -93,13 +93,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/spring-webflux/</loc>
-        <lastmod>2019-02-22T02:29:46.215Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite-url/tags/Flutter/</loc>
         <lastmod>2019-02-28T05:59:01.969Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -109,6 +102,13 @@
     <url>
         <loc>http://yoursite-url/tags/Android/</loc>
         <lastmod>2019-02-28T05:59:01.969Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/spring-webflux/</loc>
+        <lastmod>2019-10-25T09:55:18.239Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
