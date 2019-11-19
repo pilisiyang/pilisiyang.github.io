@@ -137,14 +137,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -298,9 +298,9 @@ Spring Cloud Gateway requires the Netty runtime provided by Spring Boot and Spri
         </p>
         <div class="tags">
             
-              <a href="/tags/#spring gateway" title="spring gateway">spring gateway</a>
-            
               <a href="/tags/#spring webflux" title="spring webflux">spring webflux</a>
+            
+              <a href="/tags/#spring gateway" title="spring gateway">spring gateway</a>
             
         </div>
     
@@ -523,15 +523,23 @@ Flyway是一款开源的数据库版本管理工具，它更倾向于规约优�
 
 <div class="post-preview">
 
-    <a href="/2018/08/24/多租户的实现/">
+    <a href="/2018/08/24/spring boot 项目中多租户的实现/">
         <h2 class="post-title">
-            多租户的实现
+            spring boot 项目中多租户的实现
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            ...
+            项目背景
+
+项目中SaaS服务需要提供多租户基础功能，通过访问域名区分不同的客户，进而隔离数据源，即一个租户一个数据库。
+
+AbstractRoutingDataSource
+
+spring中对切换数据源提供了动态设置方法，通过determineCurrentLookupKey()设置值切换对应数据源。
+
+org.springframework.jdbc.datasource.lookup.......
         </div>
     </a>
     
@@ -583,13 +591,7 @@ Flyway是一款开源的数据库版本管理工具，它更倾向于规约优�
     <div class="tags">
         
             
-        
-            
-        
-            
             <a href="/tags/#docker" title="docker" rel="3">docker</a>
-            
-        
             
         
             
@@ -599,17 +601,23 @@ Flyway是一款开源的数据库版本管理工具，它更倾向于规约优�
             
         
             
+        
+            
+        
+            
             <a href="/tags/#spring security" title="spring security" rel="4">spring security</a>
             
         
             
-        
-            
-        
-            
-        
-            
             <a href="/tags/#spring webflux" title="spring webflux" rel="2">spring webflux</a>
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
